@@ -1,0 +1,1510 @@
+{
+ "meta": {
+  "legalName": "GCALIT LLC",
+  "ein": "61-2005202",
+  "bank": "Mercury",
+  "fy": "1 April 2025 \u2013 31 March 2026"
+ },
+ "generated": {
+  "transactionsPulled": 87,
+  "settled": 85,
+  "unsettled": 2,
+  "withoutPostedAt": 0,
+  "inFY": 47,
+  "beforeFY": 22,
+  "afterFY": 16
+ },
+ "opening": 16985.4,
+ "closing": 30420.88,
+ "netChange": 13435.48,
+ "reconciliation": {
+  "A_statementOpening": 16985.4,
+  "A_statementClosing": 30420.88,
+  "C_openingPlusMovement": 30420.88,
+  "C_agrees": true,
+  "C_difference": 0.0,
+  "B_liveBalance": 35322.1,
+  "B_postFYMovement": 4901.22,
+  "B_backComputedClosing": 30420.88,
+  "B_agrees": true,
+  "B_difference": 0.0,
+  "openFromAccountBirth": 16985.4,
+  "openFromBirth_agrees": true,
+  "openFromBirth_difference": 0.0
+ },
+ "monthlyClosings": [
+  28996.2,
+  28996.2,
+  29316.76,
+  35157.93,
+  30700.57,
+  34248.63,
+  30615.42,
+  30713.57,
+  32120.51,
+  31996.23,
+  31280.45,
+  30420.88
+ ],
+ "monthsMatched": 12,
+ "monthsTotal": 12,
+ "sheets": [
+  {
+   "name": "Summary",
+   "title": "Balance sheet \u2014 cash position",
+   "columns": [
+    "Line",
+    "Detail",
+    "Transactions",
+    "Amount (USD)"
+   ],
+   "types": [
+    "text",
+    "text",
+    "int",
+    "money"
+   ],
+   "rows": [
+    [
+     "OPENING BALANCE \u2014 1 April 2025",
+     "Per Mercury statement for period 01\u201331 Mar 2025",
+     null,
+     16985.4
+    ],
+    [
+     "",
+     "",
+     null,
+     null
+    ],
+    [
+     "MONEY IN",
+     "",
+     null,
+     null
+    ],
+    [
+     "  Incoming wires and deposits",
+     "Client and network receipts",
+     13,
+     32288.62
+    ],
+    [
+     "  Other incoming (ACH credits)",
+     "ACH credits Mercury files as kind 'other'",
+     8,
+     967.62
+    ],
+    [
+     "  Mercury IO card cashback",
+     "Cashback credited to the checking account",
+     3,
+     7.82
+    ],
+    [
+     "TOTAL MONEY IN",
+     "",
+     24,
+     33264.06
+    ],
+    [
+     "",
+     "",
+     null,
+     null
+    ],
+    [
+     "MONEY OUT",
+     "",
+     null,
+     null
+    ],
+    [
+     "  Outgoing payments and wires",
+     "Send Money payments, wires and wire fees",
+     10,
+     -18446.86
+    ],
+    [
+     "  Other outgoing (ACH debits)",
+     "ACH debits Mercury files as kind 'other'",
+     1,
+     -859.57
+    ],
+    [
+     "  Debit-card spend",
+     "Debit-card purchases hitting the account directly",
+     0,
+     0.0
+    ],
+    [
+     "  Sent to Mercury IO card (Autopay)",
+     "Cash leaving the account to pay the credit card",
+     3,
+     -522.15
+    ],
+    [
+     "  Reversed back from card",
+     "Card payments returned to the account",
+     0,
+     0.0
+    ],
+    [
+     "TOTAL MONEY OUT",
+     "Every dollar that left the bank, card payments included",
+     14,
+     -19828.58
+    ],
+    [
+     "    of which expenses",
+     "Paid to suppliers, platforms and services",
+     11,
+     -19306.43
+    ],
+    [
+     "    of which sent to card",
+     "Moved to the Mercury IO card, then spent from it",
+     3,
+     -522.15
+    ],
+    [
+     "",
+     "",
+     null,
+     null
+    ],
+    [
+     "NET CHANGE FOR THE YEAR",
+     "Total money in less total money out",
+     38,
+     13435.48
+    ],
+    [
+     "",
+     "",
+     null,
+     null
+    ],
+    [
+     "CLOSING BALANCE \u2014 31 March 2026",
+     "Per Mercury statement for period 01\u201331 Mar 2026",
+     null,
+     30420.88
+    ]
+   ],
+   "emphasis": {
+    "0": "open",
+    "6": "total",
+    "14": "total",
+    "18": "net",
+    "20": "double"
+   },
+   "w": [
+    300,
+    420,
+    110,
+    140
+   ],
+   "formulas": {
+    "6,D": "SUM(D5:D7)",
+    "6,C": "SUM(C5:C7)",
+    "14,D": "SUM(D11:D15)",
+    "14,C": "SUM(C11:C15)",
+    "15,D": "SUM(D11:D13)",
+    "15,C": "SUM(C11:C13)",
+    "16,D": "SUM(D14:D15)",
+    "16,C": "SUM(C14:C15)",
+    "18,D": "D8+D16",
+    "20,D": "D2+D20"
+   }
+  },
+  {
+   "name": "Monthly",
+   "title": "Month by month \u2014 each month checked against its own Mercury statement",
+   "columns": [
+    "Month",
+    "Opening",
+    "Money in",
+    "Money out",
+    "Sent to card",
+    "Net",
+    "Closing",
+    "Statement",
+    "Check",
+    "Txns"
+   ],
+   "types": [
+    "text",
+    "money",
+    "money",
+    "money",
+    "money",
+    "money",
+    "money",
+    "money",
+    "text",
+    "int"
+   ],
+   "rows": [
+    [
+     "April 2025",
+     16985.4,
+     12011.88,
+     -1.08,
+     0.0,
+     12010.8,
+     28996.2,
+     28996.2,
+     "MATCH",
+     5
+    ],
+    [
+     "May 2025",
+     28996.2,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     28996.2,
+     28996.2,
+     "MATCH",
+     0
+    ],
+    [
+     "June 2025",
+     28996.2,
+     327.0,
+     -6.44,
+     0.0,
+     320.56,
+     29316.76,
+     29316.76,
+     "MATCH",
+     2
+    ],
+    [
+     "July 2025",
+     29316.76,
+     8481.39,
+     -2398.97,
+     -241.25,
+     5841.17,
+     35157.93,
+     35157.93,
+     "MATCH",
+     6
+    ],
+    [
+     "August 2025",
+     35157.93,
+     2143.18,
+     -6600.54,
+     0.0,
+     -4457.36,
+     30700.57,
+     30700.57,
+     "MATCH",
+     4
+    ],
+    [
+     "September 2025",
+     30700.57,
+     5908.02,
+     -2359.96,
+     0.0,
+     3548.06,
+     34248.63,
+     34248.63,
+     "MATCH",
+     5
+    ],
+    [
+     "October 2025",
+     34248.63,
+     141.39,
+     -3774.6,
+     0.0,
+     -3633.21,
+     30615.42,
+     30615.42,
+     "MATCH",
+     2
+    ],
+    [
+     "November 2025",
+     30615.42,
+     179.05,
+     0.0,
+     -80.9,
+     98.15,
+     30713.57,
+     30713.57,
+     "MATCH",
+     3
+    ],
+    [
+     "December 2025",
+     30713.57,
+     1500.0,
+     -93.06,
+     0.0,
+     1406.94,
+     32120.51,
+     32120.51,
+     "MATCH",
+     2
+    ],
+    [
+     "January 2026",
+     32120.51,
+     1287.0,
+     -1211.28,
+     -200.0,
+     -124.28,
+     31996.23,
+     31996.23,
+     "MATCH",
+     4
+    ],
+    [
+     "February 2026",
+     31996.23,
+     1285.15,
+     -2000.93,
+     0.0,
+     -715.78,
+     31280.45,
+     31280.45,
+     "MATCH",
+     4
+    ],
+    [
+     "March 2026",
+     31280.45,
+     0.0,
+     -859.57,
+     0.0,
+     -859.57,
+     30420.88,
+     30420.88,
+     "MATCH",
+     1
+    ],
+    [
+     "FULL YEAR",
+     16985.4,
+     33264.06,
+     -19306.43,
+     -522.15,
+     13435.48,
+     30420.88,
+     30420.88,
+     "MATCH",
+     38
+    ]
+   ],
+   "emphasis": {
+    "12": "double"
+   },
+   "w": [
+    130,
+    140,
+    140,
+    140,
+    140,
+    140,
+    140,
+    140,
+    110,
+    80
+   ],
+   "formulas": {
+    "0,F": "C2+D2+E2",
+    "0,G": "B2+F2",
+    "0,I": "IF(G2=H2,\"MATCH\",\"MISMATCH\")",
+    "1,F": "C3+D3+E3",
+    "1,G": "B3+F3",
+    "1,B": "G2",
+    "1,I": "IF(G3=H3,\"MATCH\",\"MISMATCH\")",
+    "2,F": "C4+D4+E4",
+    "2,G": "B4+F4",
+    "2,B": "G3",
+    "2,I": "IF(G4=H4,\"MATCH\",\"MISMATCH\")",
+    "3,F": "C5+D5+E5",
+    "3,G": "B5+F5",
+    "3,B": "G4",
+    "3,I": "IF(G5=H5,\"MATCH\",\"MISMATCH\")",
+    "4,F": "C6+D6+E6",
+    "4,G": "B6+F6",
+    "4,B": "G5",
+    "4,I": "IF(G6=H6,\"MATCH\",\"MISMATCH\")",
+    "5,F": "C7+D7+E7",
+    "5,G": "B7+F7",
+    "5,B": "G6",
+    "5,I": "IF(G7=H7,\"MATCH\",\"MISMATCH\")",
+    "6,F": "C8+D8+E8",
+    "6,G": "B8+F8",
+    "6,B": "G7",
+    "6,I": "IF(G8=H8,\"MATCH\",\"MISMATCH\")",
+    "7,F": "C9+D9+E9",
+    "7,G": "B9+F9",
+    "7,B": "G8",
+    "7,I": "IF(G9=H9,\"MATCH\",\"MISMATCH\")",
+    "8,F": "C10+D10+E10",
+    "8,G": "B10+F10",
+    "8,B": "G9",
+    "8,I": "IF(G10=H10,\"MATCH\",\"MISMATCH\")",
+    "9,F": "C11+D11+E11",
+    "9,G": "B11+F11",
+    "9,B": "G10",
+    "9,I": "IF(G11=H11,\"MATCH\",\"MISMATCH\")",
+    "10,F": "C12+D12+E12",
+    "10,G": "B12+F12",
+    "10,B": "G11",
+    "10,I": "IF(G12=H12,\"MATCH\",\"MISMATCH\")",
+    "11,F": "C13+D13+E13",
+    "11,G": "B13+F13",
+    "11,B": "G12",
+    "11,I": "IF(G13=H13,\"MATCH\",\"MISMATCH\")",
+    "12,B": "B2",
+    "12,C": "SUM(C2:C13)",
+    "12,D": "SUM(D2:D13)",
+    "12,E": "SUM(E2:E13)",
+    "12,F": "SUM(F2:F13)",
+    "12,G": "B14+F14",
+    "12,J": "SUM(J2:J13)"
+   }
+  },
+  {
+   "name": "Ledger",
+   "title": "Every transaction posted in the financial year (47)",
+   "columns": [
+    "Posted",
+    "Account",
+    "Type",
+    "Counterparty",
+    "Description",
+    "Category",
+    "Amount (USD)",
+    "Balance"
+   ],
+   "types": [
+    "date",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "money",
+    "money"
+   ],
+   "rows": [
+    [
+     "2025-04-02",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "BUYGOODS INC.",
+     "",
+     "",
+     8548.04,
+     25533.44
+    ],
+    [
+     "2025-04-04",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "CLICKSTACK LTD.",
+     "",
+     "",
+     1340.0,
+     26873.44
+    ],
+    [
+     "2025-04-07",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "BUYGOODS INC.",
+     "",
+     "",
+     2123.8,
+     28997.24
+    ],
+    [
+     "2025-04-21",
+     "Checking \u2022\u20226538",
+     "Outgoing payment",
+     "Google LLC",
+     "Send Money transaction initiated on Mercury",
+     "",
+     -1.08,
+     28996.16
+    ],
+    [
+     "2025-04-21",
+     "Checking \u2022\u20226538",
+     "Incoming ACH",
+     "GOOGLE",
+     "GOOGLE; ACCTVERIFY; GCALIT LLC",
+     "",
+     0.04,
+     28996.2
+    ],
+    [
+     "2025-06-27",
+     "Checking \u2022\u20226538",
+     "Incoming ACH",
+     "Guru Media Int L",
+     "Guru Media Int L; EDI PYMNTS; GCALIT LLC",
+     "",
+     327.0,
+     29323.2
+    ],
+    [
+     "2025-06-30",
+     "Checking \u2022\u20226538",
+     "Outgoing payment",
+     "Google LLC",
+     "Send Money transaction initiated on Mercury",
+     "",
+     -6.44,
+     29316.76
+    ],
+    [
+     "2025-07-02",
+     "Credit card",
+     "Card",
+     "Cs* Wyomingllcattorney",
+     "CS* WYOMINGLLCATTORNEY",
+     "ProfessionalServices",
+     -179.0,
+     null
+    ],
+    [
+     "2025-07-02",
+     "Credit card",
+     "Card",
+     "Cs* State of Wyoming",
+     "CS* STATE OF WYOMING",
+     "ProfessionalServices",
+     -62.25,
+     null
+    ],
+    [
+     "2025-07-02",
+     "Checking \u2022\u20226538",
+     "Outgoing payment",
+     "Google LLC",
+     "Send Money transaction initiated on Mercury",
+     "",
+     -2398.97,
+     26917.79
+    ],
+    [
+     "2025-07-09",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "BUYGOODS INC.",
+     "",
+     "",
+     6347.78,
+     33265.57
+    ],
+    [
+     "2025-07-12",
+     "Credit card",
+     "Card",
+     "Mercury Checking \u2022\u20226538",
+     "IO AUTOPAY",
+     "",
+     241.25,
+     null
+    ],
+    [
+     "2025-07-12",
+     "Checking \u2022\u20226538",
+     "Sent to card",
+     "Mercury Credit",
+     "IO AUTOPAY",
+     "",
+     -241.25,
+     33024.32
+    ],
+    [
+     "2025-07-12",
+     "Checking \u2022\u20226538",
+     "Cashback",
+     "Mercury IO Cashback",
+     "",
+     "",
+     3.61,
+     33027.93
+    ],
+    [
+     "2025-07-17",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "SANITY ADS LIMITED",
+     "",
+     "",
+     1380.0,
+     34407.93
+    ],
+    [
+     "2025-07-31",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "CLICKSTACK LTD.",
+     "",
+     "",
+     750.0,
+     35157.93
+    ],
+    [
+     "2025-08-04",
+     "Checking \u2022\u20226538",
+     "Outgoing payment",
+     "Google LLC",
+     "Send Money transaction initiated on Mercury",
+     "",
+     -6600.54,
+     28557.39
+    ],
+    [
+     "2025-08-13",
+     "Checking \u2022\u20226538",
+     "Incoming ACH",
+     "GOOGLE",
+     "GOOGLE; ACCTVERIFY; GCALIT LLC",
+     "",
+     0.69,
+     28558.08
+    ],
+    [
+     "2025-08-22",
+     "Checking \u2022\u20226538",
+     "Incoming ACH",
+     "GOOGLE",
+     "GOOGLE; YOUTUBE_PA; GCALIT LLC",
+     "",
+     182.49,
+     28740.57
+    ],
+    [
+     "2025-08-27",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "BLUE WAVE ADS LIMITED ZHONG GUO NEI",
+     "",
+     "",
+     1960.0,
+     30700.57
+    ],
+    [
+     "2025-09-03",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "SANITY ADS LIMITED",
+     "",
+     "",
+     1220.0,
+     31920.57
+    ],
+    [
+     "2025-09-03",
+     "Checking \u2022\u20226538",
+     "Outgoing payment",
+     "Google LLC",
+     "Send Money transaction initiated on Mercury",
+     "",
+     -2359.96,
+     29560.61
+    ],
+    [
+     "2025-09-10",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "BLITZADS LIMITED",
+     "",
+     "",
+     2335.0,
+     31895.61
+    ],
+    [
+     "2025-09-17",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "SANITY ADS LIMITED",
+     "",
+     "",
+     2215.0,
+     34110.61
+    ],
+    [
+     "2025-09-22",
+     "Checking \u2022\u20226538",
+     "Incoming ACH",
+     "GOOGLE",
+     "GOOGLE; YOUTUBE_PA; GCALIT LLC",
+     "",
+     138.02,
+     34248.63
+    ],
+    [
+     "2025-10-03",
+     "Checking \u2022\u20226538",
+     "Outgoing payment",
+     "Google LLC",
+     "Send Money transaction initiated on Mercury",
+     "",
+     -3774.6,
+     30474.03
+    ],
+    [
+     "2025-10-16",
+     "Credit card",
+     "Card",
+     "Namecheap",
+     "NAME-CHEAP.COM* MRTUUU",
+     "Software",
+     -80.9,
+     null
+    ],
+    [
+     "2025-10-21",
+     "Checking \u2022\u20226538",
+     "Incoming ACH",
+     "GOOGLE",
+     "GOOGLE; YOUTUBE_PA; GCALIT LLC",
+     "",
+     141.39,
+     30615.42
+    ],
+    [
+     "2025-11-12",
+     "Credit card",
+     "Card",
+     "Mercury Checking \u2022\u20226538",
+     "IO AUTOPAY",
+     "",
+     80.9,
+     null
+    ],
+    [
+     "2025-11-12",
+     "Checking \u2022\u20226538",
+     "Sent to card",
+     "Mercury Credit",
+     "IO AUTOPAY",
+     "",
+     -80.9,
+     30534.52
+    ],
+    [
+     "2025-11-12",
+     "Checking \u2022\u20226538",
+     "Cashback",
+     "Mercury IO Cashback",
+     "",
+     "",
+     1.21,
+     30535.73
+    ],
+    [
+     "2025-11-21",
+     "Checking \u2022\u20226538",
+     "Incoming ACH",
+     "GOOGLE",
+     "GOOGLE; YOUTUBE_PA; GCALIT LLC",
+     "",
+     177.84,
+     30713.57
+    ],
+    [
+     "2025-12-02",
+     "Checking \u2022\u20226538",
+     "Outgoing payment",
+     "Google LLC",
+     "Send Money transaction initiated on Mercury",
+     "",
+     -93.06,
+     30620.51
+    ],
+    [
+     "2025-12-31",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "BLITZADS LIMITED",
+     "",
+     "",
+     1500.0,
+     32120.51
+    ],
+    [
+     "2026-01-02",
+     "Credit card",
+     "Card",
+     "Namecheap",
+     "NAME-CHEAP.COM* X1CNGN",
+     "Software",
+     -200.0,
+     null
+    ],
+    [
+     "2026-01-05",
+     "Checking \u2022\u20226538",
+     "Outgoing payment",
+     "Google LLC",
+     "Send Money transaction initiated on Mercury",
+     "",
+     -1211.28,
+     30909.23
+    ],
+    [
+     "2026-01-12",
+     "Credit card",
+     "Card",
+     "Mercury Checking \u2022\u20226538",
+     "IO AUTOPAY",
+     "",
+     200.0,
+     null
+    ],
+    [
+     "2026-01-12",
+     "Checking \u2022\u20226538",
+     "Sent to card",
+     "Mercury Credit",
+     "IO AUTOPAY",
+     "",
+     -200.0,
+     30709.23
+    ],
+    [
+     "2026-01-12",
+     "Checking \u2022\u20226538",
+     "Cashback",
+     "Mercury IO Cashback",
+     "",
+     "",
+     3.0,
+     30712.23
+    ],
+    [
+     "2026-01-21",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "BLITZADS LIMITED",
+     "",
+     "",
+     1284.0,
+     31996.23
+    ],
+    [
+     "2026-02-03",
+     "Credit card",
+     "Card",
+     "Microsoft",
+     "MICROSOFT*ADS-G145KLQY",
+     "Software",
+     -100.0,
+     null
+    ],
+    [
+     "2026-02-04",
+     "Checking \u2022\u20226538",
+     "Incoming wire",
+     "SANITY ADS LIMITED",
+     "",
+     "",
+     1285.0,
+     33281.23
+    ],
+    [
+     "2026-02-04",
+     "Checking \u2022\u20226538",
+     "Outgoing payment",
+     "Google LLC",
+     "Send Money transaction initiated on Mercury",
+     "",
+     -1910.93,
+     31370.3
+    ],
+    [
+     "2026-02-05",
+     "Credit card",
+     "Card",
+     "Microsoft",
+     "MICROSOFT*ADS-G145KLQY",
+     "Software",
+     100.0,
+     null
+    ],
+    [
+     "2026-02-17",
+     "Checking \u2022\u20226538",
+     "Outgoing payment",
+     "Books & Counts LLC",
+     "Send Money transaction initiated on Mercury",
+     "",
+     -90.0,
+     31280.3
+    ],
+    [
+     "2026-02-26",
+     "Checking \u2022\u20226538",
+     "Incoming ACH",
+     "GOOGLE",
+     "GOOGLE; ACCTVERIFY; GCALIT LLC",
+     "",
+     0.15,
+     31280.45
+    ],
+    [
+     "2026-03-20",
+     "Checking \u2022\u20226538",
+     "Outgoing ACH",
+     "GOOGLE",
+     "GOOGLE; PURCHASE; GCALIT LLC",
+     "",
+     -859.57,
+     30420.88
+    ]
+   ],
+   "w": [
+    110,
+    170,
+    150,
+    300,
+    420,
+    150,
+    140,
+    140
+   ],
+   "formulas": {},
+   "emphasis": {}
+  },
+  {
+   "name": "Cards",
+   "title": "Card activity \u2014 sits on the credit-card ledger, not on the bank balance",
+   "columns": [
+    "Posted",
+    "Merchant",
+    "Description",
+    "Type",
+    "Amount (USD)"
+   ],
+   "types": [
+    "date",
+    "text",
+    "text",
+    "text",
+    "money"
+   ],
+   "rows": [
+    [
+     "2025-07-02",
+     "Cs* Wyomingllcattorney",
+     "CS* WYOMINGLLCATTORNEY",
+     "Spend",
+     -179.0
+    ],
+    [
+     "2025-07-02",
+     "Cs* State of Wyoming",
+     "CS* STATE OF WYOMING",
+     "Spend",
+     -62.25
+    ],
+    [
+     "2025-07-12",
+     "Mercury Checking \u2022\u20226538",
+     "IO AUTOPAY",
+     "Payment received",
+     241.25
+    ],
+    [
+     "2025-10-16",
+     "Namecheap",
+     "NAME-CHEAP.COM* MRTUUU",
+     "Spend",
+     -80.9
+    ],
+    [
+     "2025-11-12",
+     "Mercury Checking \u2022\u20226538",
+     "IO AUTOPAY",
+     "Payment received",
+     80.9
+    ],
+    [
+     "2026-01-02",
+     "Namecheap",
+     "NAME-CHEAP.COM* X1CNGN",
+     "Spend",
+     -200.0
+    ],
+    [
+     "2026-01-12",
+     "Mercury Checking \u2022\u20226538",
+     "IO AUTOPAY",
+     "Payment received",
+     200.0
+    ],
+    [
+     "2026-02-03",
+     "Microsoft",
+     "MICROSOFT*ADS-G145KLQY",
+     "Spend",
+     -100.0
+    ],
+    [
+     "2026-02-05",
+     "Microsoft",
+     "MICROSOFT*ADS-G145KLQY",
+     "Refund / reversal",
+     100.0
+    ],
+    [
+     "",
+     "",
+     "",
+     "",
+     null
+    ],
+    [
+     "TOTAL CARD SPEND",
+     "",
+     "",
+     "",
+     -622.15
+    ],
+    [
+     "TOTAL REFUNDS / REVERSALS",
+     "",
+     "",
+     "",
+     100.0
+    ],
+    [
+     "NET CARD SPEND",
+     "",
+     "",
+     "",
+     -522.15
+    ],
+    [
+     "PAID OFF FROM THE BANK ACCOUNT",
+     "",
+     "",
+     "",
+     522.15
+    ],
+    [
+     "CARD BALANCE OWED AT YEAR END",
+     "",
+     "",
+     "",
+     0.0
+    ]
+   ],
+   "emphasis": {
+    "10": "total",
+    "12": "total",
+    "14": "close"
+   },
+   "w": [
+    110,
+    260,
+    420,
+    150,
+    140
+   ],
+   "formulas": {
+    "10,E": "SUMIF($D$2:$D$10,\"Spend\",$E$2:$E$10)",
+    "11,E": "SUMIF($D$2:$D$10,\"Refund / reversal\",$E$2:$E$10)",
+    "12,E": "E12+E13",
+    "13,E": "-Summary!D18",
+    "14,E": "E14+E15"
+   }
+  },
+  {
+   "name": "Reconciliation",
+   "title": "Four independent routes to the same two numbers",
+   "columns": [
+    "Route",
+    "How it is derived",
+    "Result",
+    "Expected",
+    "Difference",
+    "Verdict"
+   ],
+   "types": [
+    "text",
+    "text",
+    "money",
+    "money",
+    "money",
+    "text"
+   ],
+   "rows": [
+    [
+     "A \u2014 Statement",
+     "Mercury statement for 01\u201331 Mar 2025, ending balance",
+     16985.4,
+     16985.4,
+     0.0,
+     "AUTHORITY (opening)"
+    ],
+    [
+     "A \u2014 Statement",
+     "Mercury statement for 01\u201331 Mar 2026, ending balance",
+     30420.88,
+     30420.88,
+     0.0,
+     "AUTHORITY (closing)"
+    ],
+    [
+     "B \u2014 Back-computed",
+     "Live balance today minus every transaction posted after 31 Mar 2026",
+     30420.88,
+     30420.88,
+     0.0,
+     "MATCH"
+    ],
+    [
+     "C \u2014 Forward",
+     "Opening balance plus every transaction posted inside the year",
+     30420.88,
+     30420.88,
+     0.0,
+     "MATCH"
+    ],
+    [
+     "D \u2014 From account opening",
+     "Every transaction from the day the account opened to 31 Mar 2025",
+     16985.4,
+     16985.4,
+     0.0,
+     "MATCH"
+    ],
+    [
+     "",
+     "",
+     null,
+     null,
+     null,
+     ""
+    ],
+    [
+     "E \u2014 Monthly",
+     "Each of the 12 months checked against its own statement",
+     null,
+     null,
+     null,
+     "12 of 12 MATCH"
+    ],
+    [
+     "",
+     "",
+     null,
+     null,
+     null,
+     ""
+    ],
+    [
+     "Live balance today",
+     "Sum of currentBalance on both bank accounts",
+     35322.1,
+     null,
+     null,
+     "after year end"
+    ],
+    [
+     "Posted after 31 Mar 2026",
+     "Movement in the current year to date",
+     4901.22,
+     null,
+     null,
+     "outside this report"
+    ],
+    [
+     "",
+     "",
+     null,
+     null,
+     null,
+     ""
+    ],
+    [
+     "EVIDENCE",
+     "Each line below is computed from the raw Mercury data, not asserted",
+     null,
+     null,
+     null,
+     ""
+    ],
+    [
+     "Statement / ledger bijection",
+     "Transaction ids named on a Mercury statement vs ids in our pull",
+     73,
+     73,
+     0.0,
+     "EXACT MATCH"
+    ],
+    [
+     "Every statement month reproduced",
+     "Ledger re-run against each statement's own ending balance",
+     48,
+     48,
+     0.0,
+     "48 of 48 MATCH"
+    ],
+    [
+     "Inception to date",
+     "Every transaction since the account opened vs the live balance",
+     35322.1,
+     35322.1,
+     0.0,
+     "MATCH"
+    ],
+    [
+     "Transactions dropped from the year",
+     "Rows excluded because status was not 'sent'",
+     0,
+     0.0,
+     0.0,
+     "NONE \u2014 the 2 failed rows are both dated after 31 Mar 2026"
+    ],
+    [
+     "Settled rows with no posted date",
+     "Would be silently lost by a postedAt cut",
+     0,
+     0.0,
+     0.0,
+     "NONE"
+    ],
+    [
+     "Card payments mirrored",
+     "Each bank-side card payment matched on the card ledger",
+     4,
+     4,
+     0.0,
+     "4 of 4 PAIRED"
+    ],
+    [
+     "Credit-card ledger nets to",
+     "Card opened and closed the year at zero",
+     0.0,
+     0.0,
+     0.0,
+     "MATCH"
+    ],
+    [
+     "Year-boundary safety margin",
+     "Hours between the cut and the nearest transaction either side",
+     43.65,
+     null,
+     null,
+     "3x the widest timezone on earth"
+    ],
+    [
+     "",
+     "",
+     null,
+     null,
+     null,
+     ""
+    ],
+    [
+     "NOTED, NOT RESOLVED",
+     "",
+     null,
+     null,
+     null,
+     ""
+    ],
+    [
+     "Credit account has no statements",
+     "Mercury issues statements for the two bank accounts only, so the card ledger has no statement-level corroboration \u2014 only the zero-sum and mirrored-payment checks above",
+     null,
+     null,
+     null,
+     "open"
+    ],
+    [
+     "Card spend equals card payments",
+     "True this year only because the card balance was zero at both 31 Mar 2025 and 31 Mar 2026. In a year ending with a card balance owed, the two would differ",
+     null,
+     null,
+     null,
+     "context"
+    ]
+   ],
+   "w": [
+    170,
+    460,
+    140,
+    140,
+    140,
+    170
+   ],
+   "formulas": {
+    "2,C": "C10-C11",
+    "3,C": "Summary!D2+SUM(Ledger!G2:G48)",
+    "2,E": "C4-D4",
+    "2,F": "IF(E4=0,\"MATCH\",\"MISMATCH\")",
+    "3,E": "C5-D5",
+    "3,F": "IF(E5=0,\"MATCH\",\"MISMATCH\")",
+    "4,E": "C6-D6",
+    "4,F": "IF(E6=0,\"MATCH\",\"MISMATCH\")"
+   },
+   "emphasis": {}
+  },
+  {
+   "name": "Accounts",
+   "title": "GCALIT LLC accounts at Mercury (EIN 61-2005202)",
+   "columns": [
+    "Account",
+    "Kind",
+    "Opening 1 Apr 2025",
+    "Closing 31 Mar 2026",
+    "Change",
+    "Balance today"
+   ],
+   "types": [
+    "text",
+    "text",
+    "money",
+    "money",
+    "money",
+    "money"
+   ],
+   "rows": [
+    [
+     "Mercury Checking \u2022\u20226538",
+     "checking",
+     16985.4,
+     30420.88,
+     13435.48,
+     35322.1
+    ],
+    [
+     "Mercury Savings \u2022\u20227355",
+     "savings",
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     "Mercury IO credit card account",
+     "credit card",
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     "",
+     "",
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "TOTAL BANK BALANCE",
+     "",
+     16985.4,
+     30420.88,
+     13435.48,
+     35322.1
+    ],
+    [
+     "",
+     "",
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "Cards issued",
+     "",
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "  Wyoming_Attorney",
+     "credit \u00b7 frozen",
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "  WYOMING_Attorney",
+     "credit \u00b7 cancelled",
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "  Duana Guye",
+     "debit \u00b7 cancelled",
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "  Deboira",
+     "credit \u00b7 cancelled",
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "  (no nickname)",
+     "debit \u00b7 frozen",
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "  (no nickname)",
+     "debit \u00b7 cancelled",
+     null,
+     null,
+     null,
+     null
+    ]
+   ],
+   "emphasis": {
+    "4": "total"
+   },
+   "w": [
+    170,
+    150,
+    140,
+    140,
+    140,
+    140
+   ],
+   "formulas": {
+    "0,E": "D2-C2",
+    "1,E": "D3-C3",
+    "2,E": "D4-C4",
+    "4,C": "SUM(C2:C4)",
+    "4,D": "SUM(D2:D4)",
+    "4,E": "SUM(E2:E4)",
+    "4,F": "SUM(F2:F4)"
+   }
+  }
+ ]
+}

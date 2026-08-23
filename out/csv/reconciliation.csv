@@ -1,0 +1,25 @@
+Route,How it is derived,Result,Expected,Difference,Verdict
+A — Statement,"Mercury statement for 01–31 Mar 2025, ending balance",16985.4,16985.4,0.0,AUTHORITY (opening)
+A — Statement,"Mercury statement for 01–31 Mar 2026, ending balance",30420.88,30420.88,0.0,AUTHORITY (closing)
+B — Back-computed,Live balance today minus every transaction posted after 31 Mar 2026,30420.88,30420.88,0.0,MATCH
+C — Forward,Opening balance plus every transaction posted inside the year,30420.88,30420.88,0.0,MATCH
+D — From account opening,Every transaction from the day the account opened to 31 Mar 2025,16985.4,16985.4,0.0,MATCH
+,,,,,
+E — Monthly,Each of the 12 months checked against its own statement,,,,12 of 12 MATCH
+,,,,,
+Live balance today,Sum of currentBalance on both bank accounts,35322.1,,,after year end
+Posted after 31 Mar 2026,Movement in the current year to date,4901.22,,,outside this report
+,,,,,
+EVIDENCE,"Each line below is computed from the raw Mercury data, not asserted",,,,
+Statement / ledger bijection,Transaction ids named on a Mercury statement vs ids in our pull,73,73,0.0,EXACT MATCH
+Every statement month reproduced,Ledger re-run against each statement's own ending balance,48,48,0.0,48 of 48 MATCH
+Inception to date,Every transaction since the account opened vs the live balance,35322.1,35322.1,0.0,MATCH
+Transactions dropped from the year,Rows excluded because status was not 'sent',0,0.0,0.0,NONE — the 2 failed rows are both dated after 31 Mar 2026
+Settled rows with no posted date,Would be silently lost by a postedAt cut,0,0.0,0.0,NONE
+Card payments mirrored,Each bank-side card payment matched on the card ledger,4,4,0.0,4 of 4 PAIRED
+Credit-card ledger nets to,Card opened and closed the year at zero,0.0,0.0,0.0,MATCH
+Year-boundary safety margin,Hours between the cut and the nearest transaction either side,43.65,,,3x the widest timezone on earth
+,,,,,
+"NOTED, NOT RESOLVED",,,,,
+Credit account has no statements,"Mercury issues statements for the two bank accounts only, so the card ledger has no statement-level corroboration — only the zero-sum and mirrored-payment checks above",,,,open
+Card spend equals card payments,"True this year only because the card balance was zero at both 31 Mar 2025 and 31 Mar 2026. In a year ending with a card balance owed, the two would differ",,,,context

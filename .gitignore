@@ -1,0 +1,8 @@
+# gstack browse writes a live terminal token here — never commit
+.gstack/
+# Raw Mercury API responses carry the FULL account and routing numbers.
+# They stay on this box only and are never committed.
+raw/
+out/balance_sheet.json
+__pycache__/
+*.pyc

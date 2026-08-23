@@ -1,0 +1,48 @@
+Posted,Account,Type,Counterparty,Description,Category,Amount (USD),Balance
+2025-04-02,Checking ••6538,Incoming wire,BUYGOODS INC.,,,8548.04,25533.44
+2025-04-04,Checking ••6538,Incoming wire,CLICKSTACK LTD.,,,1340.0,26873.44
+2025-04-07,Checking ••6538,Incoming wire,BUYGOODS INC.,,,2123.8,28997.24
+2025-04-21,Checking ••6538,Outgoing payment,Google LLC,Send Money transaction initiated on Mercury,,-1.08,28996.16
+2025-04-21,Checking ••6538,Incoming ACH,GOOGLE,GOOGLE; ACCTVERIFY; GCALIT LLC,,0.04,28996.2
+2025-06-27,Checking ••6538,Incoming ACH,Guru Media Int L,Guru Media Int L; EDI PYMNTS; GCALIT LLC,,327.0,29323.2
+2025-06-30,Checking ••6538,Outgoing payment,Google LLC,Send Money transaction initiated on Mercury,,-6.44,29316.76
+2025-07-02,Credit card,Card,Cs* Wyomingllcattorney,CS* WYOMINGLLCATTORNEY,ProfessionalServices,-179.0,
+2025-07-02,Credit card,Card,Cs* State of Wyoming,CS* STATE OF WYOMING,ProfessionalServices,-62.25,
+2025-07-02,Checking ••6538,Outgoing payment,Google LLC,Send Money transaction initiated on Mercury,,-2398.97,26917.79
+2025-07-09,Checking ••6538,Incoming wire,BUYGOODS INC.,,,6347.78,33265.57
+2025-07-12,Credit card,Card,Mercury Checking ••6538,IO AUTOPAY,,241.25,
+2025-07-12,Checking ••6538,Sent to card,Mercury Credit,IO AUTOPAY,,-241.25,33024.32
+2025-07-12,Checking ••6538,Cashback,Mercury IO Cashback,,,3.61,33027.93
+2025-07-17,Checking ••6538,Incoming wire,SANITY ADS LIMITED,,,1380.0,34407.93
+2025-07-31,Checking ••6538,Incoming wire,CLICKSTACK LTD.,,,750.0,35157.93
+2025-08-04,Checking ••6538,Outgoing payment,Google LLC,Send Money transaction initiated on Mercury,,-6600.54,28557.39
+2025-08-13,Checking ••6538,Incoming ACH,GOOGLE,GOOGLE; ACCTVERIFY; GCALIT LLC,,0.69,28558.08
+2025-08-22,Checking ••6538,Incoming ACH,GOOGLE,GOOGLE; YOUTUBE_PA; GCALIT LLC,,182.49,28740.57
+2025-08-27,Checking ••6538,Incoming wire,BLUE WAVE ADS LIMITED ZHONG GUO NEI,,,1960.0,30700.57
+2025-09-03,Checking ••6538,Incoming wire,SANITY ADS LIMITED,,,1220.0,31920.57
+2025-09-03,Checking ••6538,Outgoing payment,Google LLC,Send Money transaction initiated on Mercury,,-2359.96,29560.61
+2025-09-10,Checking ••6538,Incoming wire,BLITZADS LIMITED,,,2335.0,31895.61
+2025-09-17,Checking ••6538,Incoming wire,SANITY ADS LIMITED,,,2215.0,34110.61
+2025-09-22,Checking ••6538,Incoming ACH,GOOGLE,GOOGLE; YOUTUBE_PA; GCALIT LLC,,138.02,34248.63
+2025-10-03,Checking ••6538,Outgoing payment,Google LLC,Send Money transaction initiated on Mercury,,-3774.6,30474.03
+2025-10-16,Credit card,Card,Namecheap,NAME-CHEAP.COM* MRTUUU,Software,-80.9,
+2025-10-21,Checking ••6538,Incoming ACH,GOOGLE,GOOGLE; YOUTUBE_PA; GCALIT LLC,,141.39,30615.42
+2025-11-12,Credit card,Card,Mercury Checking ••6538,IO AUTOPAY,,80.9,
+2025-11-12,Checking ••6538,Sent to card,Mercury Credit,IO AUTOPAY,,-80.9,30534.52
+2025-11-12,Checking ••6538,Cashback,Mercury IO Cashback,,,1.21,30535.73
+2025-11-21,Checking ••6538,Incoming ACH,GOOGLE,GOOGLE; YOUTUBE_PA; GCALIT LLC,,177.84,30713.57
+2025-12-02,Checking ••6538,Outgoing payment,Google LLC,Send Money transaction initiated on Mercury,,-93.06,30620.51
+2025-12-31,Checking ••6538,Incoming wire,BLITZADS LIMITED,,,1500.0,32120.51
+2026-01-02,Credit card,Card,Namecheap,NAME-CHEAP.COM* X1CNGN,Software,-200.0,
+2026-01-05,Checking ••6538,Outgoing payment,Google LLC,Send Money transaction initiated on Mercury,,-1211.28,30909.23
+2026-01-12,Credit card,Card,Mercury Checking ••6538,IO AUTOPAY,,200.0,
+2026-01-12,Checking ••6538,Sent to card,Mercury Credit,IO AUTOPAY,,-200.0,30709.23
+2026-01-12,Checking ••6538,Cashback,Mercury IO Cashback,,,3.0,30712.23
+2026-01-21,Checking ••6538,Incoming wire,BLITZADS LIMITED,,,1284.0,31996.23
+2026-02-03,Credit card,Card,Microsoft,MICROSOFT*ADS-G145KLQY,Software,-100.0,
+2026-02-04,Checking ••6538,Incoming wire,SANITY ADS LIMITED,,,1285.0,33281.23
+2026-02-04,Checking ••6538,Outgoing payment,Google LLC,Send Money transaction initiated on Mercury,,-1910.93,31370.3
+2026-02-05,Credit card,Card,Microsoft,MICROSOFT*ADS-G145KLQY,Software,100.0,
+2026-02-17,Checking ••6538,Outgoing payment,Books & Counts LLC,Send Money transaction initiated on Mercury,,-90.0,31280.3
+2026-02-26,Checking ••6538,Incoming ACH,GOOGLE,GOOGLE; ACCTVERIFY; GCALIT LLC,,0.15,31280.45
+2026-03-20,Checking ••6538,Outgoing ACH,GOOGLE,GOOGLE; PURCHASE; GCALIT LLC,,-859.57,30420.88
