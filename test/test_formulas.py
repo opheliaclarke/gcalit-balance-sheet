@@ -43,12 +43,6 @@ def evaluate(sheet, f):
     if m:
         a, b = evaluate(sheet, m.group(1)), evaluate(sheet, m.group(2))
         return m.group(3) if abs(float(a) - float(b)) < 0.005 else m.group(4)
-    # SUMIF($D$2:$D$10,"Spend",$E$2:$E$10)
-    m = re.fullmatch(r'SUMIF\((.+?),"(.*?)",(.+?)\)', f)
-    if m:
-        crit = rng(sheet, *m.group(1).split(":"))
-        vals = rng(sheet, *m.group(3).split(":"))
-        return round(sum(v for c, v in zip(crit, vals) if c == m.group(2) and isinstance(v, (int, float))), 2)
     # SUM(A1:A9)  — may be one term inside a larger expression, handled below
     def sub(mo):
         sh = mo.group("sheet") or sheet
@@ -58,7 +52,23 @@ def evaluate(sheet, f):
         v = cell(sh, ref)
         return repr(float(v)) if isinstance(v, (int, float)) else "0"
     expr = f
-    # expand SUM(...) first
+    # expand SUMIF(...) inline so it also works inside a larger expression
+    while True:
+        m = re.search(r'SUMIF\(([^()]+?),"(.*?)",([^()]+?)\)', expr)
+        if not m:
+            break
+        a1, crit_s, a3 = m.group(1), m.group(2), m.group(3)
+        sh1 = sh3 = sheet
+        if "!" in a1: sh1, a1 = a1.split("!")
+        if "!" in a3: sh3, a3 = a3.split("!")
+        crit = rng(sh1, *a1.split(":"))
+        vals = rng(sh3, *a3.split(":"))
+        neg = crit_s.startswith("<>")
+        want = crit_s[2:] if neg else crit_s
+        keep = (lambda c: c != want) if neg else (lambda c: c == want)
+        tot = sum(v for c, v in zip(crit, vals) if keep(c) and isinstance(v, (int, float)))
+        expr = expr[:m.start()] + repr(round(tot, 2)) + expr[m.end():]
+    # expand SUM(...) next
     while True:
         m = re.search(r"SUM\(([^()]+)\)", expr)
         if not m:

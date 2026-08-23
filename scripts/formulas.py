@@ -27,21 +27,25 @@ def summary(rows):
 
 
 def monthly(rows):
+    """A Month · B Opening · C Money in · D Expenses · E Sent to card ·
+       F Total money out · G Net · H Closing · I Statement · J Check · K Txns"""
     f = {}
     n = len(rows) - 1                    # 12 month rows, last row is FULL YEAR
     for i in range(n):
         r = R(i)
-        f[(i, "F")] = "C%d+D%d+E%d" % (r, r, r)          # Net
-        f[(i, "G")] = "B%d+F%d" % (r, r)                 # Closing
+        f[(i, "F")] = "D%d+E%d" % (r, r)                 # Total money out
+        f[(i, "G")] = "C%d+F%d" % (r, r)                 # Net
+        f[(i, "H")] = "B%d+G%d" % (r, r)                 # Closing
         if i > 0:
-            f[(i, "B")] = "G%d" % (r - 1)                # Opening = last month's closing
-        f[(i, "I")] = 'IF(G%d=H%d,"MATCH","MISMATCH")' % (r, r)
+            f[(i, "B")] = "H%d" % (r - 1)                # Opening = last month's closing
+        f[(i, "J")] = 'IF(H%d=I%d,"MATCH","MISMATCH")' % (r, r)
     last = R(n)
     f[(n, "B")] = "B2"
     for col in ("C", "D", "E", "F"):
         f[(n, col)] = "SUM(%s2:%s%d)" % (col, col, R(n - 1))
-    f[(n, "G")] = "B%d+F%d" % (last, last)
-    f[(n, "J")] = "SUM(J2:J%d)" % R(n - 1)
+    f[(n, "G")] = "C%d+F%d" % (last, last)
+    f[(n, "H")] = "B%d+G%d" % (last, last)
+    f[(n, "K")] = "SUM(K2:K%d)" % R(n - 1)
     return f
 
 
@@ -60,7 +64,9 @@ def cards(rows, n_tx):
 def reconciliation(rows, n_ledger):
     f = {}
     f[(2, "C")] = "C10-C11"                                        # B back-computed
-    f[(3, "C")] = "Summary!D2+SUM(Ledger!G2:G%d)" % R(n_ledger - 1)  # C forward
+    # Summing the whole Ledger amount column works only because the card ledger
+    # nets to zero this year. Exclude card rows so the control stays a control.
+    f[(3, "C")] = ("Summary!D2+SUMIF(Ledger!B2:B%d,\"<>Credit card\",Ledger!G2:G%d)" % (R(n_ledger - 1), R(n_ledger - 1)))
     for i in (2, 3, 4):
         r = R(i)
         f[(i, "E")] = "C%d-D%d" % (r, r)

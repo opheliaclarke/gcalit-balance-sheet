@@ -76,7 +76,9 @@ body{margin:0;background:var(--chrome);color:var(--ink);font-family:var(--ui);fo
 /* ---------------- sheet region ---------------- */
 .sheet{flex:1 1 auto;overflow:auto;background:var(--cell);position:relative;outline:none}
 table{border-collapse:separate;border-spacing:0;table-layout:fixed;width:max-content}
-th,td{height:var(--row);padding:0 12px;font-weight:400;text-align:left;white-space:nowrap;
+/* `pre`, not `nowrap`: the Summary indents sub-lines with leading spaces so they
+   also indent in Excel, and nowrap collapses them. Ellipsis still works under pre. */
+th,td{height:var(--row);padding:0 12px;font-weight:400;text-align:left;white-space:pre;
       overflow:hidden;text-overflow:ellipsis;border-right:1px solid var(--grid);
       border-bottom:1px solid var(--grid);background:var(--cell)}
 thead th{position:sticky;z-index:3;background:var(--chrome);user-select:none}
@@ -247,6 +249,8 @@ function show(i){
   const availW=$("#sheet").clientWidth-gut;
   let used=s.w.reduce((a,b)=>a+b,0); fillCols=0;
   while(used+120<=availW && fillCols<60){ used+=120; fillCols++; }
+  // Estimate, then correct by measurement below — an estimate that is one row short
+  // leaves a strip of dead page under the grid, which is the tell that it is not a sheet.
   const fillRows=Math.max(0, Math.ceil(($("#sheet").clientHeight-24-rowH)/rowH)-s.rows.length);
 
   let cg='<colgroup><col style="width:'+gut+'px">';
@@ -293,9 +297,22 @@ function show(i){
     b+='</tr>';
   }
   $("#grid tbody").innerHTML=b;
+  topUp(nc+fillCols, s.rows.length+fillRows, rowH);
   $("#dlc").href="csv/"+s.name.toLowerCase()+".csv";
   $("#sheet").scrollTop=0; $("#sheet").scrollLeft=0;
   select(0,0);
+}
+
+function topUp(ncols, have, rowH){
+  const body=$("#grid tbody"), region=$("#sheet");
+  let guard=0, n=have;
+  while(region.scrollHeight <= region.clientHeight && guard++ < 200){
+    const tr=document.createElement("tr");
+    tr.className="ghost";
+    let h='<td class="rn" data-rn="'+n+'">'+(n+2)+'</td>';
+    for(let c=0;c<ncols;c++) h+='<td class="ghost" data-r="'+n+'" data-c="'+c+'"></td>';
+    tr.innerHTML=h; body.appendChild(tr); n++;
+  }
 }
 
 /* ---------------- selection ---------------- */

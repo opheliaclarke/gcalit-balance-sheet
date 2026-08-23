@@ -34,14 +34,14 @@ def build_sheets(r, ev):
             ["OPENING BALANCE \u2014 1 April 2025", "Per Mercury statement for period 01\u201331 Mar 2025", None, r["opening"]],
             ["", "", None, None],
             ["MONEY IN", "", None, None],
-            ["  Incoming wires and deposits", "Client and network receipts", n("in_receipts"), b("in_receipts")],
-            ["  Other incoming (ACH credits)", "ACH credits Mercury files as kind 'other'", n("in_other"), b("in_other")],
+            ["  Incoming wires and deposits", "Domestic and international client receipts", n("in_receipts"), b("in_receipts")],
+            ["  Other incoming (ACH credits)", "YouTube partner payments, EDI receipts and verification micro-deposits", n("in_other"), b("in_other")],
             ["  Mercury IO card cashback", "Cashback credited to the checking account", n("in_cashback"), b("in_cashback")],
             ["TOTAL MONEY IN", "", n("in_receipts")+n("in_other")+n("in_cashback"), money_in],
             ["", "", None, None],
             ["MONEY OUT", "", None, None],
-            ["  Outgoing payments and wires", "Send Money payments, wires and wire fees", n("out_payments"), b("out_payments")],
-            ["  Other outgoing (ACH debits)", "ACH debits Mercury files as kind 'other'", n("out_other"), b("out_other")],
+            ["  Outgoing payments", "Send Money payments to suppliers and platforms", n("out_payments"), b("out_payments")],
+            ["  Other outgoing (ACH debits)", "Google ad spend collected by direct debit", n("out_other"), b("out_other")],
             ["  Debit-card spend", "Debit-card purchases hitting the account directly", n("out_card_direct"), b("out_card_direct")],
             ["  Sent to Mercury IO card (Autopay)", "Cash leaving the account to pay the credit card", n("card_payment"), b("card_payment")],
             ["  Reversed back from card", "Card payments returned to the account", n("card_payment_reversal"), b("card_payment_reversal")],
@@ -60,15 +60,21 @@ def build_sheets(r, ev):
     monthly = {
         "name": "Monthly",
         "title": "Month by month — each month checked against its own Mercury statement",
-        "columns": ["Month", "Opening", "Money in", "Money out", "Sent to card", "Net", "Closing", "Statement", "Check", "Txns"],
-        "types":   ["text", "money", "money", "money", "money", "money", "money", "money", "text", "int"],
+        # Column names match the Summary exactly. Two tabs must never use the same
+        # words for figures that differ by the card payments.
+        "columns": ["Month", "Opening", "Money in", "Expenses", "Sent to card",
+                    "Total money out", "Net", "Closing", "Statement", "Check", "Txns"],
+        "types":   ["text", "money", "money", "money", "money", "money", "money",
+                    "money", "money", "text", "int"],
         "rows": [[x["month"], x["opening"], x["moneyIn"], x["moneyOut"], x["cardPayments"],
+                  M(x["moneyOut"] + x["cardPayments"]),
                   x["net"], x["closing"], x["statement"], "MATCH" if x["agrees"] else "MISMATCH",
                   x["txns"]] for x in r["monthly"]]
               + [["FULL YEAR", r["opening"],
                   M(sum(x["moneyIn"] for x in r["monthly"])),
                   M(sum(x["moneyOut"] for x in r["monthly"])),
                   M(sum(x["cardPayments"] for x in r["monthly"])),
+                  M(sum(x["moneyOut"] + x["cardPayments"] for x in r["monthly"])),
                   r["cashMovement"], r["closing"], r["closing"],
                   "MATCH" if rec["C_agrees"] else "MISMATCH",
                   len([x for x in r["ledger"] if not x["isCard"]])]],
@@ -77,7 +83,7 @@ def build_sheets(r, ev):
 
     ledger = {
         "name": "Ledger",
-        "title": "Every transaction posted in the financial year (%d)" % len(r["ledger"]),
+        "title": "Every transaction posted in the financial year (%d rows = %d events; each card payment appears once on the bank ledger and once on the card ledger)" % (len(r["ledger"]), len(r["ledger"]) - sum(1 for x in r["ledger"] if x["bucket"] == "card_payment")),
         "columns": ["Posted", "Account", "Type", "Counterparty", "Description", "Category", "Amount (USD)", "Balance"],
         "types":   ["date", "text", "text", "text", "text", "text", "money", "money"],
         "rows": [[x["date"], "Credit card" if x["isCard"] else x["account"].replace("Mercury ", ""),
@@ -101,7 +107,11 @@ def build_sheets(r, ev):
                  ["TOTAL REFUNDS / REVERSALS", "", "", "", card["refunds"]],
                  ["NET CARD SPEND", "", "", "", card["net"]],
                  ["PAID OFF FROM THE BANK ACCOUNT", "", "", "", card["paydownOnCardLedger"]],
-                 ["CARD BALANCE OWED AT YEAR END", "", "", "", M(card["net"] + card["paydownOnCardLedger"])]],
+                 ["CARD BALANCE OWED AT YEAR END", "", "", "", M(card["net"] + card["paydownOnCardLedger"])],
+                 ["", "", "", "", None],
+                 ["Card liability 1 Apr 2025", "Credit account opened %s, after the year began, and no card charge posted before that"
+                  % (card.get("accountOpened") or "later"), "", "", card.get("openingLiability")],
+                 ["Card liability 31 Mar 2026", "Every charge in the year was paid off or refunded, so the cash and accrual views agree this year", "", "", card.get("closingLiability")]],
         "emphasis": {len(card_txs)+1: "total", len(card_txs)+3: "total", len(card_txs)+5: "close"},
     }
 

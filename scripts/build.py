@@ -186,7 +186,14 @@ def main():
         "card": {
             "spend": card_spend, "refunds": card_refund, "net": card_net,
             "paydownOnCardLedger": card_paydown,
-            "openingLiability": per_account_bounds.get(list(credit_ids)[0], {}).get("opening") if credit_ids else None,
+            # Provable, not assumed: the credit account did not exist on 1 Apr 2025
+            # (opened later) and no credit row posted before the FY, so the opening
+            # liability is zero by construction rather than by assertion.
+            "openingLiability": money(sum(t["amount"] for t in pre if t["accountId"] in credit_ids)),
+            "closingLiability": money(sum(t["amount"] for t in dated
+                                          if t["accountId"] in credit_ids
+                                          and t["postedAt"][:10] < FY_END_EXCL)),
+            "accountOpened": (credit[0]["createdAt"][:10] if credit else None),
         },
         "reconciliation": {
             "A_statementOpening": stmt_open,
@@ -204,7 +211,10 @@ def main():
             "openFromBirth_difference": money(open_from_zero - stmt_open),
         },
         "excluded": [
-            {"id": t["id"], "postedAt": (t.get("postedAt") or t["createdAt"])[:10],
+            # postedAt stays null when the row never posted; the created date is a
+            # separate fact and is labelled as one. Coalescing them invents a posting.
+            {"id": t["id"], "postedAt": (t["postedAt"][:10] if t.get("postedAt") else None),
+             "createdAt": t["createdAt"][:10],
              "status": t["status"], "kind": t["kind"], "amount": money(t["amount"]),
              "counterparty": t.get("counterpartyName"),
              "reason": t.get("reasonForFailure")}
@@ -277,8 +287,10 @@ if __name__ == "__main__":
            f"{rec['openFromBirth_difference']:,.2f}"))
     print("-" * 74)
     g = r["generatedFrom"]
-    print("Source: %d transactions pulled, %d settled, %d in FY, %d excluded (not 'sent')"
-          % (g["transactionsPulled"], g["settled"], g["inFY"], g["unsettled"]))
+    print("Source: %d transactions pulled, %d settled, %d posted inside the FY."
+          % (g["transactionsPulled"], g["settled"], g["inFY"]))
+    print("%d row(s) in the whole pull are not 'sent'. NONE fall in this FY:" % g["unsettled"])
     for e in r["excluded"]:
-        print("   excluded: %s %s %s %s %s" % (e["postedAt"], e["status"], e["kind"],
-                                               f"{e['amount']:,.2f}", e["counterparty"]))
+        print("   %s  created %s  posted %s  %s  %s  %s"
+              % (e["status"], e["createdAt"], e["postedAt"] or "never", e["kind"],
+                 f"{e['amount']:,.2f}", e["counterparty"]))

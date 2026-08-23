@@ -14,3 +14,6 @@ TOTAL REFUNDS / REVERSALS,,,,100.0
 NET CARD SPEND,,,,-522.15
 PAID OFF FROM THE BANK ACCOUNT,,,,522.15
 CARD BALANCE OWED AT YEAR END,,,,0.0
+,,,,
+Card liability 1 Apr 2025,"Credit account opened 2025-05-11, after the year began, and no card charge posted before that",,,0.0
+Card liability 31 Mar 2026,"Every charge in the year was paid off or refunded, so the cash and accrual views agree this year",,,0.0
