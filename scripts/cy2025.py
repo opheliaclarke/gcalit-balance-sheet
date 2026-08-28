@@ -83,8 +83,13 @@ card_rows = sorted([t for t in txns_cy if in_year(t) and t["accountId"] in CREDI
                    key=lambda t: (t["postedAt"], t["id"]))
 
 def describe(t):
-    return (t.get("counterpartyNickname") or t.get("counterpartyName")
-            or t.get("bankDescription") or t.get("externalMemo") or t.get("kind") or "—")
+    return (t.get("counterpartyName") or t.get("bankDescription")
+            or t.get("externalMemo") or t.get("kind") or "—")
+
+def nickname(t):
+    """The owner's private label, shown only where it differs from the payee of record."""
+    n = t.get("counterpartyNickname")
+    return n if n and n != t.get("counterpartyName") else ""
 
 def memo(t):
     return t.get("externalMemo") or t.get("note") or t.get("bankDescription") or ""
@@ -135,6 +140,7 @@ for t in ledger:
         "kind": t["kind"], "desc": describe(t), "memo": memo(t),
         "amount": r2(t["amount"]), "balance_before": before, "balance_after": run,
         "card_payment": t["id"] in CARD_PAY_IDS,
+        "nickname": nickname(t),
         "link": t.get("dashboardLink"),
     })
 RUN_CLOSE = run
@@ -171,7 +177,8 @@ for r in rows:
     if r["date"] <= PEAK_DATE and r["balance_after"] == peak_eod_val:
         peak_cause = r
 low_val = min(eod.values())
-low_date = next(k for k, v in eod.items() if v == low_val)
+low_days = [k for k, v in eod.items() if v == low_val]
+low_date, low_last, low_held = low_days[0], low_days[-1], len(low_days)
 avg_daily = r2(sum(eod.values()) / len(eod))
 
 # ---------------------------------------------------------------- monthly roll
@@ -235,10 +242,18 @@ pids = {r["id"] for r in rows}
 ck("F  statement ids ↔ ledger ids, no orphans", sids == pids,
    "%d statement ids, %d ledger rows, %d missing, %d orphan"
    % (len(sids), len(pids), len(sids - pids), len(pids - sids)))
-# G. T2 — postedAt set vs createdAt set for the same year
-ck("G  T2 measured: postedAt-2025 vs createdAt-2025",
-   True, "%d posted / %d created / %d rows differ"
-   % (len(txns_cy), len(txns_cre), len({t["id"] for t in txns_cy} ^ {t["id"] for t in txns_cre})))
+# G. T2 — the trap is a row whose createdAt YEAR differs from its postedAt year: that row lands
+# in the wrong year under a created-basis cut. Comparing the two dumps proves nothing here (they
+# come back byte-identical), so test the property directly.
+year_straddle = [t for t in txns_all if t.get("postedAt")
+                 and t["createdAt"][:4] != t["postedAt"][:4]
+                 and YEAR_START <= t["postedAt"][:10] <= YEAR_END]
+day_straddle = [t for t in txns_cy if t["createdAt"][:10] != t["postedAt"][:10]]
+ck("G  T2: no row straddles the YEAR on created-vs-posted", not year_straddle,
+   "%d straddle the year, %d straddle a day (%s)" % (
+       len(year_straddle), len(day_straddle),
+       "; ".join("%s created %s posted %s" % (r2(t["amount"]), t["createdAt"][:10], t["postedAt"][:10])
+                 for t in day_straddle) or "none"))
 # H. no failed / unposted row inside the year
 ck("H  0 failed or unposted rows inside 2025",
    all(t["status"] == "sent" for t in txns_cy) and all(t.get("postedAt") for t in txns_cy),
@@ -278,6 +293,26 @@ ck("L  peak reproduced by an independent day-cut sum",
    [k for k, v in alt.items() if v == max(alt.values())][0] == PEAK_DATE,
    "%.2f on %s" % (max(alt.values()), [k for k, v in alt.items() if v == max(alt.values())][0]))
 
+# Boundary margins, in hours, on the UTC clock Mercury's own statements cut on.
+def _dt(s):
+    from datetime import datetime
+    return datetime.strptime(s[:19], "%Y-%m-%dT%H:%M:%S")
+from datetime import datetime as _DT
+first_in = min(_dt(r["postedAt"]) for r in rows)
+last_in  = max(_dt(r["postedAt"]) for r in rows)
+before   = [t for t in txns_all if t.get("postedAt") and t["postedAt"][:10] < YEAR_START
+            and t["accountId"] in bank_ids]
+after_r  = [t for t in txns_all if t.get("postedAt") and t["postedAt"][:10] > YEAR_END
+            and t["accountId"] in bank_ids]
+h = lambda a, b: round(abs((a - b).total_seconds()) / 3600.0, 2)
+year_open, year_close = _DT(2025, 1, 1), _DT(2026, 1, 1)
+margin_open  = min([h(first_in, year_open)] + [h(_dt(t["postedAt"]), year_open) for t in before])
+margin_close = min([h(last_in, year_close)] + [h(_dt(t["postedAt"]), year_close) for t in after_r])
+# the peak DATE has its own margin: the credit that set it landed close to midnight UTC
+peak_margin = h(_dt(peak_cause["postedAt"]), _DT(2025, 8, 1))
+ck("O  boundary margins computed, not assumed", True,
+   "open %.2f h, close %.2f h, peak-date %.2f h" % (margin_open, margin_close, peak_margin))
+
 result = {
     "entity": {"name": CHECKING["legalBusinessName"], "ein": s_close_chk["ein"],
                "address": s_close_chk["companyLegalAddress"]},
@@ -299,11 +334,17 @@ result = {
              "caused_by": peak_cause, "intraday": intraday,
              "intraday_differs": intraday > peak_eod_val,
              "intraday_row": intraday_row},
-    "low": {"balance": low_val, "date": low_date},
+    "low": {"balance": low_val, "date": low_date, "last_date": low_last,
+            "days_held": low_held, "is_opening": abs(low_val - OPENING) < 0.005},
     "avg_daily": avg_daily,
+    "margins": {"open_h": margin_open, "close_h": margin_close, "peak_date_h": peak_margin},
+    "true_expense": r2(expenses + card_spend),
+    "straddle": [{"amount": r2(t["amount"]), "desc": describe(t),
+                  "created": t["createdAt"][:10], "posted": t["postedAt"][:10]}
+                 for t in day_straddle],
     "rows": rows, "months": months,
     "cards": [{"date": t["postedAt"][:10], "desc": describe(t), "memo": memo(t),
-               "amount": r2(t["amount"]), "kind": t["kind"],
+               "amount": r2(t["amount"]), "kind": t["kind"], "nickname": nickname(t),
                "is_payment": t in card_credits} for t in card_rows],
     "eod": eod,
     "checks": [{"name": n, "ok": o, "detail": d} for n, o, d in log],

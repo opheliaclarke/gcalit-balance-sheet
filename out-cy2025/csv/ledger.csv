@@ -1,34 +1,34 @@
 Posted,Account,Type,Counterparty,Description,Amount (USD),Balance (USD)
 2025-01-07,Checking ••6538,Incoming wire (domestic),K2 OFFERS LLC,AFFILIATE PAYMENT,2250.0,13303.84
-2025-03-13,Checking ••6538,Outgoing payment,Google CL,Invoice No. 5198439717,-16.58,13287.26
-2025-03-24,Checking ••6538,Outgoing payment,Raunac CA,ITR GCALIT LLC Filed by RAUNAC,-90.0,13197.26
+2025-03-13,Checking ••6538,Outgoing payment,Google LLC,Invoice No. 5198439717 · your label: Google CL,-16.58,13287.26
+2025-03-24,Checking ••6538,Outgoing payment,Books & Counts LLC,ITR GCALIT LLC Filed by RAUNAC · your label: Raunac CA,-90.0,13197.26
 2025-03-26,Checking ••6538,Incoming wire (domestic),BUYGOODS INC.,AFFILIATE PAYMENT,3788.14,16985.4
 2025-04-02,Checking ••6538,Incoming wire (domestic),BUYGOODS INC.,AFFILIATE PAYMENT,8548.04,25533.44
 2025-04-04,Checking ••6538,Incoming wire (international),CLICKSTACK LTD.,/URI/VENDOR PAYMENT///ROC/WW25040367291259,1340.0,26873.44
 2025-04-07,Checking ••6538,Incoming wire (domestic),BUYGOODS INC.,AFFILIATE PAYMENT,2123.8,28997.24
-2025-04-21,Checking ••6538,Outgoing payment,Google CL,Send Money transaction initiated on Mercury,-1.08,28996.16
+2025-04-21,Checking ••6538,Outgoing payment,Google LLC,Send Money transaction initiated on Mercury · your label: Google CL,-1.08,28996.16
 2025-04-21,Checking ••6538,ACH / internal,GOOGLE,GOOGLE; ACCTVERIFY; GCALIT LLC,0.04,28996.2
 2025-06-27,Checking ••6538,ACH / internal,Guru Media Int L,NTE*OBI*Affiliate Marketing Commission\,327.0,29323.2
-2025-06-30,Checking ••6538,Outgoing payment,Google CL,"Invoice number: 5276703039; Invoice Number - 5276703039 Invoice Date - May 31, 2025 Billing ID - 8327-3971-0682 Account ID  - 405-199-0952",-6.44,29316.76
-2025-07-02,Checking ••6538,Outgoing payment,Google CL,"Invoice Payment 5300675820; Invoice Number - 5300675820 Invoice Date - June 30, 2025 Billing ID - 8327-3971-0682 Account ID  - 405-199-0952",-2398.97,26917.79
+2025-06-30,Checking ••6538,Outgoing payment,Google LLC,"Invoice number: 5276703039; Invoice Number - 5276703039 Invoice Date - May 31, 2025 Billing ID - 8327-3971-0682 Account ID  - 405-199-0952 · your label: Google CL",-6.44,29316.76
+2025-07-02,Checking ••6538,Outgoing payment,Google LLC,"Invoice Payment 5300675820; Invoice Number - 5300675820 Invoice Date - June 30, 2025 Billing ID - 8327-3971-0682 Account ID  - 405-199-0952 · your label: Google CL",-2398.97,26917.79
 2025-07-09,Checking ••6538,Incoming wire (domestic),BUYGOODS INC.,AFFILIATE PAYMENT,6347.78,33265.57
 2025-07-12,Checking ••6538,Sent to card,Mercury Credit,IO AUTOPAY,-241.25,33024.32
 2025-07-12,Checking ••6538,ACH / internal,Mercury IO Cashback,,3.61,33027.93
 2025-07-17,Checking ••6538,Incoming wire (domestic),SANITY ADS LIMITED,,1380.0,34407.93
 2025-07-31,Checking ••6538,Incoming wire (international),CLICKSTACK LTD.,VENDOR PAYMENT,750.0,35157.93
-2025-08-04,Checking ••6538,Outgoing payment,Google CL,"Invoice number: 5331260440; Invoice Number - 5331260440 Invoice Date - July 31, 2025 Billing ID - 8327-3971-0682 Account ID  - GCALIT1-4",-6600.54,28557.39
+2025-08-04,Checking ••6538,Outgoing payment,Google LLC,"Invoice number: 5331260440; Invoice Number - 5331260440 Invoice Date - July 31, 2025 Billing ID - 8327-3971-0682 Account ID  - GCALIT1-4 · your label: Google CL",-6600.54,28557.39
 2025-08-13,Checking ••6538,ACH / internal,GOOGLE,GOOGLE; ACCTVERIFY; GCALIT LLC,0.69,28558.08
 2025-08-22,Checking ••6538,ACH / internal,GOOGLE,GOOGLE; YOUTUBE_PA; GCALIT LLC,182.49,28740.57
 2025-08-27,Checking ••6538,Incoming wire (domestic),BLUE WAVE ADS LIMITED ZHONG GUO NEI,,1960.0,30700.57
 2025-09-03,Checking ••6538,Incoming wire (domestic),SANITY ADS LIMITED,,1220.0,31920.57
-2025-09-03,Checking ••6538,Outgoing payment,Google CL,"AUG 31,2025 -5353915159; Vendor: Invoice Number - 5353915159 Invoice Date - Aug 31, 2025 Billing ID - 8327-3971-0682 Account ID  - GCALIT1-6",-2359.96,29560.61
+2025-09-03,Checking ••6538,Outgoing payment,Google LLC,"AUG 31,2025 -5353915159; Vendor: Invoice Number - 5353915159 Invoice Date - Aug 31, 2025 Billing ID - 8327-3971-0682 Account ID  - GCALIT1-6 · your label: Google CL",-2359.96,29560.61
 2025-09-10,Checking ••6538,Incoming wire (domestic),BLITZADS LIMITED,,2335.0,31895.61
 2025-09-17,Checking ••6538,Incoming wire (domestic),SANITY ADS LIMITED,,2215.0,34110.61
 2025-09-22,Checking ••6538,ACH / internal,GOOGLE,GOOGLE; YOUTUBE_PA; GCALIT LLC,138.02,34248.63
-2025-10-03,Checking ••6538,Outgoing payment,Google CL,"For 5377217442 Sept; Vendor: Invoice Number - 5377217442 Invoice Date - Sep 30, 2025 Billing ID - 8327-3971-0682 Account ID  - GCALIT2,3,4,6",-3774.6,30474.03
+2025-10-03,Checking ••6538,Outgoing payment,Google LLC,"For 5377217442 Sept; Vendor: Invoice Number - 5377217442 Invoice Date - Sep 30, 2025 Billing ID - 8327-3971-0682 Account ID  - GCALIT2,3,4,6 · your label: Google CL",-3774.6,30474.03
 2025-10-21,Checking ••6538,ACH / internal,GOOGLE,GOOGLE; YOUTUBE_PA; GCALIT LLC,141.39,30615.42
 2025-11-12,Checking ••6538,Sent to card,Mercury Credit,IO AUTOPAY,-80.9,30534.52
 2025-11-12,Checking ••6538,ACH / internal,Mercury IO Cashback,,1.21,30535.73
 2025-11-21,Checking ••6538,ACH / internal,GOOGLE,GOOGLE; YOUTUBE_PA; GCALIT LLC,177.84,30713.57
-2025-12-02,Checking ••6538,Outgoing payment,Google CL,"via mercury.com; Vendor: Invoice Number - 5430635554 Invoice Date - Nov 30, 2025 Billing ID - 8327-3971-0682 Account ID  - GCALIT7",-93.06,30620.51
+2025-12-02,Checking ••6538,Outgoing payment,Google LLC,"via mercury.com; Vendor: Invoice Number - 5430635554 Invoice Date - Nov 30, 2025 Billing ID - 8327-3971-0682 Account ID  - GCALIT7 · your label: Google CL",-93.06,30620.51
 2025-12-31,Checking ••6538,Incoming wire (domestic),BLITZADS LIMITED,,1500.0,32120.51

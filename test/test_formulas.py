@@ -7,7 +7,9 @@ has, so it gets its own evaluator rather than a spot check.
 """
 import json, os, re, sys
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-D = json.load(open(os.path.join(HERE, "out", "sheets.json")))
+# Which workbook: page 1 by default, page 2 when a path is given.
+BOOK_PATH = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "out", "sheets.json")
+D = json.load(open(BOOK_PATH))
 BOOK = {s["name"]: s for s in D["sheets"]}
 
 def col_i(letters):
@@ -68,19 +70,23 @@ def evaluate(sheet, f):
         keep = (lambda c: c != want) if neg else (lambda c: c == want)
         tot = sum(v for c, v in zip(crit, vals) if keep(c) and isinstance(v, (int, float)))
         expr = expr[:m.start()] + repr(round(tot, 2)) + expr[m.end():]
-    # expand SUM(...) next
+    # expand SUM / MAX / MIN / AVERAGE over a range
+    AGG = {"SUM": lambda xs: sum(xs), "MAX": max, "MIN": min,
+           "AVERAGE": lambda xs: sum(xs) / len(xs)}
     while True:
-        m = re.search(r"SUM\(([^()]+)\)", expr)
+        m = re.search(r"\b(SUM|MAX|MIN|AVERAGE)\(([^()]+)\)", expr)
         if not m:
             break
-        arg = m.group(1)
+        fn, arg = m.group(1), m.group(2)
         if "!" in arg:
             sh, arg = arg.split("!")
         else:
             sh = sheet
         a, b = arg.split(":")
-        tot = sum(v for v in rng(sh, a, b) if isinstance(v, (int, float)))
-        expr = expr[:m.start()] + repr(round(tot, 2)) + expr[m.end():]
+        vals = [v for v in rng(sh, a, b) if isinstance(v, (int, float))]
+        if not vals:
+            raise ValueError("%s over an empty range: %s" % (fn, m.group(0)))
+        expr = expr[:m.start()] + repr(round(AGG[fn](vals), 2)) + expr[m.end():]
     expr = TOKEN.sub(sub, expr)
     expr = re.sub(r"[A-Za-z]+!", "", expr)
     return round(eval(expr, {"__builtins__": {}}, {}), 2)
@@ -114,9 +120,19 @@ def main():
               if str(r[0]).startswith("CLOSING BALANCE"))
     bad = evaluate("Summary", "D2+D%d+1" % (ri, ))
     published = BOOK["Summary"]["rows"][ri][ci]
+    control_ok = abs(bad - published) > 0.005
     print("  control: a deliberately wrong formula gives %.2f vs published %.2f -> %s"
-          % (bad, published, "detected" if abs(bad - published) > 0.005 else "*** EVALUATOR IS BLIND ***"))
-    return 0 if not fails else 1
+          % (bad, published, "detected" if control_ok else "*** EVALUATOR IS BLIND ***"))
+    # second control, only where an aggregate is in play: MAX must not silently return 0
+    if "Daily" in BOOK:
+        n = len(BOOK["Daily"]["rows"])
+        hi = evaluate("Peak", "MAX(Daily!E2:E%d)" % (n + 1))
+        lo = evaluate("Peak", "MIN(Daily!E2:E%d)" % (n + 1))
+        agg_ok = hi > lo > 0
+        print("  control: MAX over the daily column = %.2f, MIN = %.2f -> %s"
+              % (hi, lo, "aggregates live" if agg_ok else "*** AGGREGATE IS BLIND ***"))
+        control_ok = control_ok and agg_ok
+    return 0 if (not fails and control_ok) else 1
 
 if __name__ == "__main__":
     sys.exit(main())

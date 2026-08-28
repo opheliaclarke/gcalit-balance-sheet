@@ -228,7 +228,8 @@ def write_xlsx(sheets, path):
     # styles: 0 default, 1 bold, 2 money, 3 money bold, 4 title
     styles = ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
       '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
-      '<numFmts count="1"><numFmt numFmtId="164" formatCode="#,##0.00;[Red]-#,##0.00"/></numFmts>'
+      '<numFmts count="2"><numFmt numFmtId="164" formatCode="#,##0.00;[Red]-#,##0.00"/>'
+      '<numFmt numFmtId="165" formatCode="#,##0"/></numFmts>'
       '<fonts count="3"><font><sz val="11"/><name val="Calibri"/></font>'
       '<font><b/><sz val="11"/><name val="Calibri"/></font>'
       '<font><b/><sz val="13"/><name val="Calibri"/></font></fonts>'
@@ -236,12 +237,14 @@ def write_xlsx(sheets, path):
       '<fill><patternFill patternType="gray125"/></fill></fills>'
       '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>'
       '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>'
-      '<cellXfs count="5">'
+      '<cellXfs count="7">'
       '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>'
       '<xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0"/>'
       '<xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>'
       '<xf numFmtId="164" fontId="1" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>'
       '<xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0"/>'
+      '<xf numFmtId="165" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>'
+      '<xf numFmtId="165" fontId="1" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>'
       '</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>')
 
     root = ['<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',
@@ -267,6 +270,11 @@ def write_xlsx(sheets, path):
             grid = [s["columns"]] + s["rows"]
             emph = s.get("emphasis", {})
             fmap = s.get("formulas", {})
+            types = s.get("types", [])
+            # a count column gets an integer format, never the money one
+            numstyle = lambda ci, bold: ((6 if bold else 5)
+                                         if ci < len(types) and types[ci] == "int"
+                                         else (3 if bold else 2))
             for ri, row in enumerate(grid):
                 out.append('<row r="%d">' % (ri + 1))
                 for ci, val in enumerate(row):
@@ -278,7 +286,7 @@ def write_xlsx(sheets, path):
                     bold = ri == 0 or (ri >= 1 and emph.get(str(ri - 1)) or emph.get(ri - 1))
                     if formula is not None:
                         numeric = isinstance(val, (int, float)) and not isinstance(val, bool)
-                        st = (3 if bold else 2) if numeric else (1 if bold else 0)
+                        st = numstyle(ci, bold) if numeric else (1 if bold else 0)
                         if numeric:
                             out.append('<c r="%s" s="%d"><f>%s</f><v>%s</v></c>'
                                        % (ref, st, _esc(formula), val))
@@ -286,7 +294,7 @@ def write_xlsx(sheets, path):
                             out.append('<c r="%s" s="%d" t="str"><f>%s</f><v>%s</v></c>'
                                        % (ref, st, _esc(formula), _esc(val or "")))
                     elif isinstance(val, (int, float)) and not isinstance(val, bool):
-                        out.append('<c r="%s" s="%d"><v>%s</v></c>' % (ref, 3 if bold else 2, val))
+                        out.append('<c r="%s" s="%d"><v>%s</v></c>' % (ref, numstyle(ci, bold), val))
                     else:
                         out.append('<c r="%s" s="%d" t="inlineStr"><is><t xml:space="preserve">%s</t></is></c>'
                                    % (ref, 1 if bold else 0, _esc(val)))

@@ -68,27 +68,63 @@ step "peak agrees on Summary, Peak tab and band"
 python3 - <<'PY' >/dev/null 2>&1 && ok || bad "the three peak figures disagree"
 import json
 j=json.load(open("out-cy2025/sheets.json")); s={x["name"]:x for x in j["sheets"]}
-a=[r for r in s["Summary"]["rows"] if r[0].startswith("PEAK BALANCE")][0][3]
+a=[r for r in s["Summary"]["rows"] if str(r[0]).startswith("PEAK BALANCE")][0][3]
 b=[r for r in s["Peak"]["rows"] if r[0]=="PEAK BALANCE"][0][3]
 assert abs(a-b)<0.005 and abs(a-j["peak"])<0.005, (a,b,j["peak"])
 # and the date must be one string, not three
-d1=[r for r in s["Summary"]["rows"] if r[0].startswith("PEAK BALANCE")][0][0].split("— ")[1]
+d1=[r for r in s["Summary"]["rows"] if str(r[0]).startswith("PEAK BALANCE")][0][0].split("\u2014 ")[1]
 d2=[r for r in s["Peak"]["rows"] if r[0]=="PEAK BALANCE"][0][2]
 assert d1==d2==j["peakDate"], (d1,d2,j["peakDate"])
 PY
 
 step "money out is a total, not a subtotal"
-python3 - <<'PY' >/dev/null 2>&1 && ok || bad "expenses + sent to card != total money out"
+python3 - <<'PY' >/dev/null 2>&1 && ok || bad "the money-out lines do not add up"
 import json
 s={x["name"]:x for x in json.load(open("out-cy2025/sheets.json"))["sheets"]}
 R=s["Summary"]["rows"]
 tot=[r for r in R if r[0]=="TOTAL MONEY OUT"][0][3]
-exp=[r for r in R if r[0].strip()=="of which expenses"][0][3]
-crd=[r for r in R if r[0].strip()=="of which sent to card"][0][3]
-assert abs(exp+crd-tot)<0.005, (exp,crd,tot)
+det=[r[3] for r in R if str(r[0]).startswith("  Outgoing payments") or str(r[0]).startswith("  Sent to the")]
+assert len(det)==2 and abs(sum(det)-tot)<0.005, (det,tot)
 m=s["Monthly"]; ci=m["columns"].index("Money out")
 yr=[r for r in m["rows"] if r[0]=="FULL YEAR 2025"][0][ci]
 assert abs(yr-tot)<0.005, (yr,tot)
+# the split must not ALSO be restated as "of which" - reading the column down double-counts
+assert not [r for r in R if str(r[0]).strip().startswith("of which")]
+PY
+
+step "503 formulas recalculate"
+python3 test/test_formulas.py out-cy2025/sheets.json >/dev/null 2>&1 && ok || bad "a formula does not recalculate"
+
+step "counterparty = payee of record, not a nickname"
+python3 - <<'PY' >/dev/null 2>&1 && ok || bad "a private nickname is shown as the payee"
+import json
+raw=json.load(open("raw-cy2025/transactions_cy2025.json"))
+byname={t["counterpartyName"] for t in raw}
+nicks={t["counterpartyNickname"] for t in raw if t.get("counterpartyNickname")}
+assert nicks, "no nicknames in the data - this check would pass vacuously"
+s={x["name"]:x for x in json.load(open("out-cy2025/sheets.json"))["sheets"]}
+import re
+checked=0
+for sheet,ci in (("Ledger",3),("Card",1)):
+    for r in s[sheet]["rows"]:
+        if r[ci] and re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(r[0])):
+            checked+=1
+            assert r[ci] not in nicks, (sheet, r[ci])
+            assert r[ci] in byname, (sheet, r[ci])
+assert checked==38, checked   # 33 bank + 5 card; a silent 0 would pass vacuously
+PY
+
+step "no bare count sits in a money column"
+python3 - <<'PY' >/dev/null 2>&1 && ok || bad "a count is formatted as money"
+import json
+COUNTS={33.0,38.0,22.0,11.0,2.0,12.0,9.0}
+for sh in json.load(open("out-cy2025/sheets.json"))["sheets"]:
+    if sh["name"] not in ("Reconciliation","Peak"): continue
+    for ci,t in enumerate(sh["types"]):
+        if t!="money": continue
+        for r in sh["rows"]:
+            v=r[ci] if ci<len(r) else None
+            assert not (isinstance(v,(int,float)) and v in COUNTS), (sh["name"],r[0],v)
 PY
 
 step "both pages link to each other"
