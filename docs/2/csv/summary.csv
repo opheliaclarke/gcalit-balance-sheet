@@ -1,0 +1,21 @@
+Line,Detail,Transactions,Amount (USD)
+OPENING BALANCE — 1 January 2025,Mercury's own ending balance on the statement for 01–31 December 2024,,11053.84
+,,,
+MONEY IN,,,
+  Incoming wires,Domestic and international client and affiliate receipts,13,35757.76
+  Other incoming (ACH credits),"YouTube partner payments, an affiliate ACH credit and account-verification micro-deposits",7,967.47
+  Mercury IO card cashback,Cashback credited to the checking account,2,4.82
+TOTAL MONEY IN,,22,36730.05
+,,,
+MONEY OUT,,,
+  Outgoing payments,"Google Ads invoices, accountancy and platform fees",9,-15341.23
+  Sent to the Mercury IO card,Autopay moving cash out of the bank to settle the credit card,2,-322.15
+TOTAL MONEY OUT,"Every dollar that left the bank, card payments included",11,-15663.38
+    of which expenses,"Paid to suppliers, platforms and services",9,-15341.23
+    of which sent to card,"Moved to the Mercury IO card, then spent from it",2,-322.15
+,,,
+NET CHANGE FOR THE YEAR,Total money in less total money out,33,21066.67
+,,,
+CLOSING BALANCE — 31 December 2025,Mercury's own ending balance on the statement for 01–31 December 2025,,32120.51
+,,,
+PEAK BALANCE — 31 July 2025,The highest balance the account held at any point in 2025,,35157.93

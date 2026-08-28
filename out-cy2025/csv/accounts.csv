@@ -1,0 +1,12 @@
+Account,Kind,Opened,Opening 1 Jan 2025,Closing 31 Dec 2025,Change,Balance today
+Mercury Checking ••6538,checking,2024-08-07,11053.84,32120.51,21066.67,35322.1
+Mercury Savings ••7355,savings,2024-08-07,0.0,0.0,0.0,0.0
+Mercury IO credit card,credit card,2025-05-11,0.0,0.0,0.0,0.0
+,,,,,,
+TOTAL BANK BALANCE,,,11053.84,32120.51,21066.67,35322.1
+,,,,,,
+Legal name,GCALIT LLC,,,,,
+EIN,61-2005202,,,,,
+Registered address,"1309 Coffeen Avenue, Ste 1200, Sheridan WY, 82801",,,,,
+Routing number,Held by Mercury; deliberately not published on this page,,,,,
+Data pulled,"2026-08-28 from the Mercury API, read-only",,,,,

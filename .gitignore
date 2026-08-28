@@ -6,3 +6,7 @@ raw/
 out/balance_sheet.json
 __pycache__/
 *.pyc
+# Raw Mercury API responses carry the FULL account and routing numbers.
+raw-cy2025/
+# Intermediate build product; carries Mercury dashboard links and transaction ids.
+out-cy2025/cy2025.json

@@ -1,0 +1,36 @@
+Measure,Detail,Date,Amount (USD)
+PEAK BALANCE,Highest end-of-day balance across all 365 days of 2025,31 July 2025,35157.93
+,,,
+Reached on,The day the balance first hit that figure,31 July 2025,35157.93
+Held until,"It stayed at the peak for 4 days, the next movement being the first debit after it",3 August 2025,35157.93
+Caused by,CLICKSTACK LTD. — Incoming wire (international),31 July 2025,750.0
+Balance immediately before,The balance the moment before that credit landed,31 July 2025,34407.93
+Next movement after the peak,Google CL — Outgoing payment,4 August 2025,-6600.54
+Balance after that movement,Where the balance sat once the peak broke,4 August 2025,28557.39
+,,,
+Intra-day high,"Highest point reached at any moment, in Mercury's own posting order — the same figure, so no intra-day spike sits above the end-of-day peak",31 July 2025,35157.93
+,,,
+Lowest balance of the year,Lowest end-of-day balance in 2025,1 January 2025,11053.84
+Average daily balance,Mean of all 365 end-of-day balances,1 Jan – 31 Dec 2025,26110.17
+Opening balance,1 January 2025,1 January 2025,11053.84
+Closing balance,31 December 2025,31 December 2025,32120.51
+Peak above closing,How far the peak sat above where the year ended,,3037.42
+Peak above opening,How far the peak sat above where the year began,,24104.09
+,,,
+Days spent at or above,"How many of the 365 days closed at or above each level. The figure in the last column is the threshold, not an amount held.",4 days,35000.0
+Days spent at or above,,146 days,30000.0
+Days spent at or above,,274 days,25000.0
+,,,
+PEAK BY MONTH,Highest end-of-day balance inside each month,,
+  January 2025,,7 January 2025,13303.84
+  February 2025,,1 February 2025,13303.84
+  March 2025,,26 March 2025,16985.4
+  April 2025,,7 April 2025,28997.24
+  May 2025,,1 May 2025,28996.2
+  June 2025,,27 June 2025,29323.2
+  July 2025,,31 July 2025,35157.93
+  August 2025,,1 August 2025,35157.93
+  September 2025,,22 September 2025,34248.63
+  October 2025,,1 October 2025,34248.63
+  November 2025,,21 November 2025,30713.57
+  December 2025,,31 December 2025,32120.51

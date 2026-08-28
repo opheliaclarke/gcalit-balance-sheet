@@ -1,0 +1,14 @@
+Posted,Merchant / counterparty,Description,Type,Amount (USD)
+2025-07-02,Cs* Wyomingllcattorney,CS* WYOMINGLLCATTORNEY,Spend,-179.0
+2025-07-02,Cs* State of Wyoming,CS* STATE OF WYOMING,Spend,-62.25
+2025-07-12,Mercury Checking ••6538,IO AUTOPAY,Payment received from the bank,241.25
+2025-10-16,Namecheap,NAME-CHEAP.COM* MRTUUU,Spend,-80.9
+2025-11-12,Mercury Checking ••6538,IO AUTOPAY,Payment received from the bank,80.9
+,,,,
+TOTAL CARD SPEND,,,,-322.15
+TOTAL REFUNDS,,,,0.0
+PAID OFF FROM THE BANK ACCOUNT,Mirrors the two 'Sent to card' rows on the bank ledger,,,322.15
+"CARD BALANCE OWED, 31 DECEMBER 2025",Spend less refunds less payments,,,0.0
+,,,,
+"Card liability, 1 January 2025","The credit account was opened on 2025-05-11, after the year began, so nothing could be owed on 1 January",,,0.0
+"Card liability, 31 December 2025","Every charge raised in 2025 was paid off, so the cash and accrual views of this year agree. In a year that ends with a balance owed they would not.",,,0.0

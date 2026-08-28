@@ -155,6 +155,14 @@ tr.ghost td{height:var(--row)}
   tr.e-double td:not(.rn){border-bottom-color:#000!important;color:#000!important}
 }
 @media (prefers-reduced-motion:reduce){.status__toast{transition:none}}
+
+/* cross-page link */
+.fbar{overflow-x:auto;scrollbar-width:thin}
+.xpage{display:flex;align-items:center;padding:0 14px;border-left:1px solid var(--edge);
+  font-family:var(--mono);font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap}
+.xpage:hover{background:var(--hl)}
+.xpage:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+@media print{.xpage{display:none}}
 </style>
 </head>
 <body>
@@ -179,6 +187,7 @@ tr.ghost td{height:var(--row)}
     <a id="dlx" href="GCALIT-Mercury-FY2025-26.xlsx" download>Download .xlsx</a>
     <a id="dlc" href="csv/summary.csv" download>.csv</a>
     <button type="button" id="theme">Dark</button>
+    <a class="xpage" href="2/">Page 2 &middot; 2025 &amp; peak balance &rarr;</a>
   </div>
 </div>
 

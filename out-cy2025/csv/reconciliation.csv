@@ -1,0 +1,21 @@
+Route,How it is derived,Result,Expected,Difference,Verdict
+A — Statement,"Mercury's statement for 01–31 December 2024, ending balance",11053.84,11053.84,0.0,AUTHORITY (opening)
+A — Statement,"Mercury's statement for 01–31 December 2025, ending balance",32120.51,32120.51,0.0,AUTHORITY (closing)
+B — Back-computed,Live balance today less every transaction posted after 31 December 2025,32120.51,32120.51,0.0,MATCH
+C — Forward,Opening balance plus every transaction posted inside 2025,32120.51,32120.51,0.0,MATCH
+D — From account opening,Every transaction from the day the account opened to 31 December 2024,11053.84,11053.84,0.0,MATCH
+E — Monthly,Each of the 12 months against its own statement,,,,12 of 12 MATCH
+"L — Peak, second route",Peak recomputed as a day-cut sum rather than a running total,35157.93,35157.93,0.0,MATCH
+,,,,,
+EVIDENCE,"Each line below is computed from the raw Mercury data, not asserted",,,,
+Statement / ledger bijection,Transaction ids named on Mercury's 2025 statements against the ids in our pull,33.0,33.0,0.0,"EXACT MATCH — 0 missing, 0 orphan"
+createdAt vs postedAt,The trap that puts a transaction in the wrong year: we pulled 2025 both ways and compared,38.0,38.0,0.0,IDENTICAL — no row straddles the year boundary
+Rows dropped from the year,Rows excluded because they failed or never posted,0.0,0.0,0.0,NONE — all 38 rows posted
+Savings ••7355,Every one of its 12 statement ending balances in 2025,0.0,0.0,0.0,ZERO ALL YEAR — no rows
+Card payments mirrored,Each 'Sent to card' row on the bank matched to its credit on the card ledger,2.0,2.0,0.0,2 of 2 PAIRED
+Money-out split,"Expenses plus sent-to-card must equal the total, not undercut it",-15663.38,-15663.38,0.0,MATCH
+Peak sits inside the year,The peak must be at least the opening and at least the closing,35157.93,32120.51,3037.42,MATCH
+,,,,,
+"NOTED, NOT RESOLVED",,,,,
+Peak is an end-of-day figure,"A bank reports balances at the close of each day. The intra-day high in Mercury's own posting order is the same $35,157.93, so the distinction does not change the answer this year.",,,,context
+Credit account has no statements,"Mercury issues statements for the two bank accounts only, so the card ledger is corroborated by the mirrored payments and its zero balance rather than by a statement",,,,open
