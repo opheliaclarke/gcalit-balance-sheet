@@ -1,9 +1,76 @@
-# gcalit-balance-sheet — GCALIT LLC · Mercury Bank · FY 1 Apr 2025 → 31 Mar 2026
+# gcalit-balance-sheet — GCALIT LLC · Mercury Bank
 
-**Status 2026-08-23: DELIVERED.**
-LIVE: **https://opheliaclarke.github.io/gcalit-balance-sheet/** (repo
-`opheliaclarke/gcalit-balance-sheet`, Pages from `main` `/docs`, `robots.txt` disallow-all +
-`noindex` so it cannot be found by search).
+**TWO PAGES ON ONE SITE.** Repo `opheliaclarke/gcalit-balance-sheet`, Pages from `main` `/docs`,
+`robots.txt` disallow-all + `noindex` on both. They link to each other from the toolbar.
+
+| | |
+|---|---|
+| **Page 1 — FY 1 Apr 2025 → 31 Mar 2026** | https://opheliaclarke.github.io/gcalit-balance-sheet/ |
+| **Page 2 — calendar year 1 Jan → 31 Dec 2025 + PEAK BALANCE** | https://opheliaclarke.github.io/gcalit-balance-sheet/2/ |
+
+**Status 2026-08-23: page 1 DELIVERED. 2026-08-28: page 2 DELIVERED.**
+
+## PAGE 2 — THE ANSWER (calendar 2025)
+| | |
+|---|---|
+| **Opening balance, 1 January 2025** | **$11,053.84** |
+| **Closing balance, 31 December 2025** | **$32,120.51** |
+| Net change | **+$21,066.67** |
+| **PEAK BALANCE** | **$35,157.93** |
+| **Date of peak** | **31 July 2025** (held 4 days, to 3 Aug) |
+| Money in | $36,730.05 (22) |
+| Money out (all of it) | −$15,663.38 (11) — expenses −$15,341.23 (9), sent to card −$322.15 (2) |
+| Lowest balance | $11,053.84 on 1 Jan 2025 · average daily $26,110.17 |
+| Card | spend −$322.15, refunds $0.00, owed at both cuts $0.00 |
+
+Peak was caused by a **$750.00 incoming international wire from CLICKSTACK LTD.** on 31 Jul 2025,
+on top of $34,407.93. It broke on 4 Aug when Google CL took −$6,600.54 → $28,557.39.
+33 bank transactions in the year (38 rows pulled, 5 of them on the card ledger).
+
+**Eight sheets:** Summary · Peak · **Daily (all 365 end-of-day balances — the peak is the max of
+that column)** · Monthly · Ledger · Card · Reconciliation · Accounts.
+
+### How page 2 is built — DO NOT hand-edit it
+`scripts/pull_cy2025.py` (read-only pull → `raw-cy2025/`, gitignored) → `scripts/cy2025.py`
+(ledger, running balance, peak, **14 proofs — exits 1 on any failure**) → `scripts/sheets_cy2025.py`
+(8 sheets + xlsx + csv, reusing `sheets.py`'s OOXML writer) → `scripts/generate_cy2025.py`.
+⚠ **Page 2 is GENERATED FROM `scripts/page.html`**, page 1's template, by seven **asserted**
+substitutions. Change a substituted line on page 1 and page 2's build fails loudly instead of
+shipping with page 1's dates on it.
+
+### ⚠ THE DEFECT THIS BUILD SHIPPED AND FIXED — the FY build's defect #1, repeating
+The first pass classified card payments by looking for `"credit card"` in the description. The two
+real ones are counterparty **`Mercury Credit`, memo `IO AUTOPAY`** — so both were missed, "sent to
+card" read **$0.00**, and TOTAL MONEY OUT became a subtotal again. Now a payment is identified by
+its **mirror on the card ledger** (same day, equal and opposite), which is provable; check M
+asserts `expenses + sent to card == total money out`, and check K asserts every card credit found
+its bank-side row. **Never go back to a substring.**
+
+### PEAK — the two guards that make the figure meaningful
+- **P1** the running balance starts from **Mercury's own Dec-2024 statement `endingBalance`**, not
+  from a derived opening.
+- **P2** the headline is the **end-of-day** peak, because that is what a bank reports. The
+  intra-day high in Mercury's own posting order is computed separately and is the **same figure**
+  this year, so the distinction changes nothing — but it is stated on the page rather than assumed.
+- ⚠ A count must not sit in a money column: the "days at or above $X" rows carry the **threshold**
+  in Amount and the **day count as words** in the Date column. First pass rendered `4.00` under
+  "Amount (USD)".
+
+### BUILD GATE — `./test/gate_cy2025.sh` (13 checks, every one proven able to fail)
+rebuild → xlsx opens in openpyxl → **docs/2 byte-identical to out-cy2025/** → page payload
+identical to the workbook → opening+net=closing → **peak = max of the 365 daily balances and the
+row flagged PEAK is the first day holding it** → the peak agrees on Summary, the Peak tab and the
+band → money out is a total not a subtotal → both pages link to each other → **page 2 carries no
+page-1 dates** → no secret or account number in the tree.
+Run it **and `./test/gate.sh`** before any publish.
+
+⚠ Page 1 was left alone: its embedded payload is byte-identical, and the only diff is **9 added
+lines** — the link to page 2, its stylesheet, and `.fbar{overflow-x:auto}` so the widened toolbar
+can scroll on a phone. The FY workbook differs only in zip timestamps; no XML part changed.
+
+---
+
+## PAGE 1 — FY 1 Apr 2025 → 31 Mar 2026
 
 ## THE ANSWER
 | | |
@@ -112,7 +179,12 @@ shipped the $522.15-short total.
 `scripts/mercury.py` read-only client · `build.py` engine + 4-route reconciliation ·
 `monthly.py` month-by-month · `evidence.py` completeness proofs · `sheets.py` workbook + xlsx ·
 `formulas.py` the single formula map shared by page and xlsx · `generate.py` + `page.html` the page.
-`reference/` Mercury API docs as mirrored 2026-08-23. `test/` the gate and the formula evaluator.
+`reference/` Mercury API docs as mirrored 2026-08-23. `test/` the gates and the formula evaluator.
+
+## PAGE 2 FILES
+`pull_cy2025.py` · `cy2025.py` · `sheets_cy2025.py` · `generate_cy2025.py` · `test/gate_cy2025.sh`.
+Raw pull in `raw-cy2025/` and the intermediate `out-cy2025/cy2025.json` are **gitignored** (account
+and routing numbers, Mercury dashboard links). The published workbook and CSVs carry neither.
 
 ## OPEN
 1. Bob's call on the login gate for the live URL.
