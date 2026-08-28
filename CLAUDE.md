@@ -46,6 +46,46 @@ its **mirror on the card ledger** (same day, equal and opposite), which is prova
 asserts `expenses + sent to card == total money out`, and check K asserts every card credit found
 its bank-side row. **Never go back to a substring.**
 
+### ⚠ ADVERSARIAL VERIFICATION 2026-08-28 — all 14 figures CONFIRMED, 10 defects fixed
+An independent agent recomputed every published figure from `raw-cy2025/` by its own routes.
+**Nothing disputed on the numbers.** It also proved things the build did not: **all 24 statements
+Aug-2024→Jul-2026 reconcile, not just the 12**; the intra-day upper bound over *every possible*
+within-day ordering is 35,157.93, so no ordering can beat the end-of-day peak; and only 4 days in
+2025 had more than one transaction, none near the peak.
+🛑 **The defect that mattered: the counterparty column was showing the account owner's PRIVATE
+NICKNAME as the payee** — `Google LLC` published as **`Google CL`** on 8 rows carrying **$15,251.23
+= 99.4% of the expense figure**, and `Books & Counts LLC` as `Raunac CA`. Page 1 had them right, so
+page 2 contradicted it. `describe()` takes **`counterpartyName`**, never `counterpartyNickname`;
+the nickname, where it differs, goes in the description as *"your label: …"*. **Gated, with a
+vacuity guard** (the check asserts it examined 38 rows).
+🛑 **The workbook had ZERO formulas, so its MATCH verdicts were static text that could not fail.**
+It now carries **503 live formulas** — the peak reads **`=MAX(Daily!E2:E366)`**, the whole 365-row
+daily column, the ledger running balance and the monthly roll are live, and every Check is
+`=IF(F=G,"MATCH","MISMATCH")`. `test/test_formulas.py` takes a workbook path now and proves all
+503 recalculate, with two controls (a wrong formula, and MAX over an empty range).
+Other fixes: counts were formatted as money (`33.00` beside `32,120.51`) — **`int` columns now get
+`#,##0`, which fixes page 1 too** (values unchanged, format only) · the money-out split was listed
+twice so reading the column down double-counted · route letters ran A,A,B,C,D,E,**L** → now A–G ·
+the createdAt-vs-postedAt evidence compared two dumps that come back **byte-identical**, so it
+could not fail — it now tests the property directly and names the 5 rows that straddle a day ·
+"Caused by" overstated the $750 wire (the balance was already at its running high) → "Tipped to
+the peak by" · the card's opening balance is blank, not `0.00`, for an account that did not exist
+on 1 January · a **"Total expense incurred"** line separates what was SPENT ($15,663.38, bank +
+card) from what was MOVED to settle the card.
+⚠ **A build assertion caps our own prose at 140 characters** — text cells are `white-space:pre`, so
+one long sentence widened its column and pushed the money columns off a 1600px screen. Mercury's
+own memo text on the Ledger is data and is exempt.
+⚠ **A negative control caught a real bug in a check of my own**: an over-escaped regex inside a
+shell heredoc (`\\d` became a literal backslash) made the nickname check match nothing and pass
+vacuously. The `assert checked==38` line is what exposed it. Every check needs one.
+
+### ⚠ THE CLOCK — stated, not assumed
+Every date is **UTC**, the basis all 24 of Mercury's own statements reconcile on. Margins are
+computed, not asserted: **163.57 h** at the start of the year, **12.01 h** at the end — but only
+**2.03 h on the PEAK DATE**. The peak AMOUNT is clock-independent; read on a clock more than 2.03 h
+ahead of UTC — **India (+5:30) among them** — the same credit falls on **1 August**. Said plainly
+on both the Peak and Reconciliation sheets.
+
 ### PEAK — the two guards that make the figure meaningful
 - **P1** the running balance starts from **Mercury's own Dec-2024 statement `endingBalance`**, not
   from a derived opening.
@@ -56,17 +96,19 @@ its bank-side row. **Never go back to a substring.**
   in Amount and the **day count as words** in the Date column. First pass rendered `4.00` under
   "Amount (USD)".
 
-### BUILD GATE — `./test/gate_cy2025.sh` (13 checks, every one proven able to fail)
+### BUILD GATE — `./test/gate_cy2025.sh` (16 checks, every one proven able to fail)
 rebuild → xlsx opens in openpyxl → **docs/2 byte-identical to out-cy2025/** → page payload
 identical to the workbook → opening+net=closing → **peak = max of the 365 daily balances and the
 row flagged PEAK is the first day holding it** → the peak agrees on Summary, the Peak tab and the
 band → money out is a total not a subtotal → both pages link to each other → **page 2 carries no
-page-1 dates** → no secret or account number in the tree.
+page-1 dates** → **503 formulas recalculate** → **counterparty is the payee of record, not a
+nickname** → **no bare count in a money column** → no secret or account number in the tree.
 Run it **and `./test/gate.sh`** before any publish.
 
-⚠ Page 1 was left alone: its embedded payload is byte-identical, and the only diff is **9 added
-lines** — the link to page 2, its stylesheet, and `.fbar{overflow-x:auto}` so the widened toolbar
-can scroll on a phone. The FY workbook differs only in zip timestamps; no XML part changed.
+⚠ Page 1 was left alone: its embedded payload is byte-identical, and the only HTML diff is
+**9 added lines** — the link to page 2, its stylesheet, and `.fbar{overflow-x:auto}` so the widened
+toolbar can scroll on a phone. Its workbook changed in exactly one way, verified cell by cell with
+openpyxl: **0 value changes**, and the count columns moved from money format to `#,##0`.
 
 ---
 
